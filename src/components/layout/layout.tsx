@@ -4,7 +4,7 @@ import Footer from '@/components/footer/footer'
 
 function Layout() {
   return (
-    <div className="min-h-screen bg-[#0A1723] text-[#EAF2F6]">
+    <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <main>
         <Outlet />

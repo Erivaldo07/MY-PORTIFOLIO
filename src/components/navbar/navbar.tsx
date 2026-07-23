@@ -1,19 +1,40 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Code2 } from 'lucide-react'
+import ThemeToggle from '@/components/common/ThemeToggle'
+
+const links = [
+  { to: '/', label: 'Home' },
+  { to: '/sobre', label: 'Sobre' },
+  { to: '/projetos', label: 'Projetos' },
+  { to: '/contacto', label: 'Contacto' },
+]
 
 function Navbar() {
   return (
-    <header className="border-b border-[#1F3B54] px-6 py-4">
+    <header className="border-b border-border px-6 py-4">
       <nav className="mx-auto flex max-w-5xl items-center justify-between">
-        <span className="flex items-center gap-2 font-semibold">
-          <Code2 size={18} className="text-[#2E9CB3]" />
+        <span className="flex items-center gap-2 font-semibold text-foreground">
+          <Code2 size={18} className="text-primary" />
           EM.
         </span>
-        <div className="flex gap-6 text-sm text-[#8FA9BC]">
-          <Link to="/">Home</Link>
-          <Link to="/sobre">Sobre</Link>
-          <Link to="/projetos">Projetos</Link>
-          <Link to="/contacto">Contacto</Link>
+
+        <div className="flex items-center gap-6">
+          <div className="flex gap-6 text-sm">
+            {links.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.to === '/'}
+                className={({ isActive }) =>
+                  isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
+          </div>
+
+          <ThemeToggle />
         </div>
       </nav>
     </header>

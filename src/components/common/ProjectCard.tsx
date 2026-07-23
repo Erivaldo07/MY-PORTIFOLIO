@@ -11,21 +11,21 @@ type ProjectCardProps = {
 
 function ProjectCard({ icon: Icon, tag, title, description, stack }: ProjectCardProps) {
   return (
-    <Card className="border-[#1F3B54] bg-[#112436] transition-colors hover:border-[#2E9CB3]/50">
+    <Card className="border-border bg-card shadow-sm transition-all hover:border-primary/50 hover:shadow-md">
       <CardHeader className="flex flex-row items-center justify-between">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#15304A]">
-          <Icon size={18} className="text-[#2E9CB3]" strokeWidth={1.6} />
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
+          <Icon size={18} className="text-primary" strokeWidth={1.6} />
         </div>
         <span className="font-mono text-[11px] uppercase text-[#D9A85C]">{tag}</span>
       </CardHeader>
       <CardContent>
-        <CardTitle className="mb-2 text-lg text-[#EAF2F6]">{title}</CardTitle>
-        <p className="mb-4 text-sm leading-relaxed text-[#8FA9BC]">{description}</p>
+        <CardTitle className="mb-2 text-lg text-foreground">{title}</CardTitle>
+        <p className="mb-4 text-sm leading-relaxed text-muted-foreground">{description}</p>
         <div className="flex flex-wrap gap-2">
           {stack.map((s) => (
             <span
               key={s}
-              className="rounded-md border border-[#1F3B54] px-2 py-1 font-mono text-[11px] text-[#8FA9BC]"
+              className="rounded-md border border-border px-2 py-1 font-mono text-[11px] text-muted-foreground"
             >
               {s}
             </span>

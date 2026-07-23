@@ -1,9 +1,8 @@
 import { Mail, Phone} from 'lucide-react'
-import Reveal from '@/components//common/Reveal'
-import ArchitecturePulse from '@/components//common/ArchitecturePulse'
+import Reveal from '@/components/common/Reveal'
+import ArchitecturePulse from '@/components/common/ArchitecturePulse'
 import { profile } from '@/data/profile'
-import {FaGithub,FaLinkedin} from 'react-icons/fa'
-
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
 
 function Home() {
   return (
@@ -12,17 +11,17 @@ function Home() {
         <p className="mb-4 font-mono text-xs uppercase tracking-wider text-[#D9A85C]">
           // desenvolvedor web full-stack
         </p>
-        <h1 className="mb-5 font-sans text-4xl font-semibold leading-tight sm:text-5xl">
+        <h1 className="mb-5 text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
           {profile.name}
         </h1>
-        <p className="mb-8 max-w-xl text-base text-[#8FA9BC] sm:text-lg">
+        <p className="mb-8 max-w-xl text-base text-muted-foreground sm:text-lg">
           Sou desenvolvedor apaixonado por tecnologia, com foco na inovação e na
           criação de interfaces modernas. Construo produtos reais — do turismo à
           saúde, da educação ao serviço público — sempre à procura da solução
           certa a longo prazo, não da mais rápida.
         </p>
 
-       <div className="mb-12 flex flex-wrap gap-3">
+        <div className="mb-12 flex flex-wrap gap-3">
   <a
     href={`mailto:${profile.email}`}
     className="flex items-center gap-2 rounded-full bg-[#2E9CB3] px-4 py-2 text-sm font-semibold text-[#04141C] transition-transform hover:-translate-y-0.5"
@@ -59,11 +58,13 @@ function Home() {
     LinkedIn
   </a>
 </div>
+
+
       </Reveal>
 
       <Reveal delay={150}>
-        <div className="rounded-2xl border border-[#1F3B54] bg-[#112436] p-6">
-          <p className="mb-4 font-mono text-xs text-[#8FA9BC]">
+        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+          <p className="mb-4 font-mono text-xs text-muted-foreground">
             stack em produção — do clique ao dado
           </p>
           <ArchitecturePulse />

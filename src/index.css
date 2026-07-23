@@ -50,40 +50,26 @@
 }
 
 :root {
-    --background: oklch(0.98 0.006 240);
-    --foreground: oklch(0.17 0.02 240);
-    --card: oklch(1 0.004 240);
-    --card-foreground: oklch(0.17 0.02 240);
-    --popover: oklch(1 0.004 240);
-    --popover-foreground: oklch(0.17 0.02 240);
-    --primary: oklch(0.55 0.09 200);
-    --primary-foreground: oklch(0.98 0.006 240);
-    --secondary: oklch(0.94 0.01 240);
-    --secondary-foreground: oklch(0.17 0.02 240);
-    --muted: oklch(0.94 0.01 240);
-    --muted-foreground: oklch(0.45 0.03 235);
-    --accent: oklch(0.55 0.09 200);
-    --accent-foreground: oklch(0.98 0.006 240);
+    --background: oklch(0.97 0.008 240);
+    --foreground: oklch(0.16 0.02 240);
+    --card: oklch(1 0.003 240);
+    --card-foreground: oklch(0.16 0.02 240);
+    --popover: oklch(1 0.003 240);
+    --popover-foreground: oklch(0.16 0.02 240);
+    --primary: oklch(0.5 0.1 200);
+    --primary-foreground: oklch(0.99 0.004 240);
+    --secondary: oklch(0.93 0.012 235);
+    --secondary-foreground: oklch(0.16 0.02 240);
+    --muted: oklch(0.93 0.012 235);
+    --muted-foreground: oklch(0.4 0.03 235);
+    --accent: oklch(0.5 0.1 200);
+    --accent-foreground: oklch(0.99 0.004 240);
     --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.88 0.015 235);
-    --input: oklch(0.88 0.015 235);
-    --ring: oklch(0.55 0.09 200);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --radius: 0.75rem;
-    --sidebar: oklch(0.98 0.006 240);
-    --sidebar-foreground: oklch(0.17 0.02 240);
-    --sidebar-primary: oklch(0.55 0.09 200);
-    --sidebar-primary-foreground: oklch(0.98 0.006 240);
-    --sidebar-accent: oklch(0.94 0.01 240);
-    --sidebar-accent-foreground: oklch(0.17 0.02 240);
-    --sidebar-border: oklch(0.88 0.015 235);
-    --sidebar-ring: oklch(0.55 0.09 200);
+    --border: oklch(0.85 0.018 235);
+    --input: oklch(0.85 0.018 235);
+    --ring: oklch(0.5 0.1 200);
+    /* chart-*, radius, sidebar-* ficam iguais */
 }
-
 .dark {
     --background: oklch(0.17 0.025 235);
     --foreground: oklch(0.93 0.01 210);
@@ -121,11 +107,17 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    }
+  }
   body {
     @apply bg-background text-foreground;
-    }
+    background-image: radial-gradient(
+      ellipse 80% 50% at 50% -10%,
+      color-mix(in oklch, var(--primary) 12%, transparent),
+      transparent
+    );
+    background-attachment: fixed;
+  }
   html {
     @apply font-sans;
-    }
+  }
 }
