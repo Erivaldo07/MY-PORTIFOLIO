@@ -7,6 +7,14 @@ export type Project = {
   title: string
   description: string
   stack: string[]
+  image?: string
+  githubUrl?: string
+  liveUrl?: string
+  stars?: number
+  forks?: number
+  featured?: boolean
+  date?: string
+  category?: string
 }
 
 export const projects: Project[] = [
