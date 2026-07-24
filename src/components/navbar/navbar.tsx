@@ -3,7 +3,7 @@ import { Code2, Menu, X, Home, User, FolderGit2, Mail, Sparkles, Terminal} from 
 import ThemeToggle from '@/components/common/ThemeToggle'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FaGithub, FaLinkedin} from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaTwitter} from 'react-icons/fa'
 
 const links = [
   { to: '/', label: 'Home', icon: Home },
@@ -15,6 +15,7 @@ const links = [
 const socialLinks = [
   { icon: FaGithub, url: 'https://github.com/yourusername', label: 'GitHub' },
   { icon: FaLinkedin, url: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
+  { icon: FaTwitter, url: 'https://twitter.com/yourusername', label: 'Twitter' },
 ]
 
 function Navbar() {
