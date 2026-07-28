@@ -110,9 +110,9 @@ function Navbar() {
               className="flex items-center gap-2 group relative"
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-primary/5 rounded-lg blur-md group-hover:blur-xl transition-all duration-300" />
+                <div className="absolute inset-0 bg-linear-to-r from-primary/20 to-primary/5 rounded-lg blur-md group-hover:blur-xl transition-all duration-300" />
                 <div className="relative flex items-center gap-2 font-semibold text-foreground">
-                  <div className="p-1.5 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/10 group-hover:border-primary/30 transition-all duration-300">
+                  <div className="p-1.5 rounded-lg bg-linear-to-br from-primary/20 to-primary/5 border border-primary/10 group-hover:border-primary/30 transition-all duration-300">
                     <Code2 size={20} className="text-primary group-hover:scale-110 transition-transform duration-300" />
                   </div>
                   <span className="text-lg font-bold tracking-tight">
