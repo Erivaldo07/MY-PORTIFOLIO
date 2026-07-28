@@ -44,7 +44,6 @@ const projectFeatures = {
 
 function ProjetoDetalhe() {
   const { slug } = useParams()
-  const navigate = useNavigate()
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
   const [likes, setLikes] = useState(42)

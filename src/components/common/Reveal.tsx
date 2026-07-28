@@ -1,6 +1,8 @@
 import  { motion} from 'framer-motion'
 import type { ReactNode } from 'react'
-import { useEffect, useState } from 'react'
+import {  useState } from 'react'
+import type { Variants } from 'framer-motion'
+import React from 'react'
 
 type RevealDirection = 'up' | 'down' | 'left' | 'right' | 'scale' | 'fade'
 type RevealEase = 'easeOut' | 'easeInOut' | 'easeIn' | 'spring' | 'anticipate'
@@ -15,7 +17,6 @@ type RevealProps = {
   ease?: RevealEase
   once?: boolean
   amount?: number
-  stagger?: number
   staggerChildren?: number
   scale?: number
   rotate?: number
@@ -36,7 +37,6 @@ function Reveal({
   ease = 'easeOut',
   once = true,
   amount = 0.15,
-  stagger = 0,
   staggerChildren = 0,
   scale = 1,
   rotate = 0,
@@ -47,10 +47,10 @@ function Reveal({
   rootMargin = '0px'
 }: RevealProps) {
   const [isVisible, setIsVisible] = useState(false)
-  const [hasAnimated, setHasAnimated] = useState(false)
+
 
   // Configurações de animação baseadas na direção
-  const getInitialPosition = (): MotionProps['initial'] => {
+ const getInitialPosition = () => {
     const base = { opacity: 0, scale: scale !== 1 ? scale : undefined }
 
     switch (direction) {
@@ -80,7 +80,6 @@ function Reveal({
         y: 0,
         scale: 1,
         rotate: 0,
-        blur: blur ? 0 : undefined,
         transition: {
           duration: duration,
           delay: delay / 1000,
@@ -98,14 +97,6 @@ function Reveal({
 
     return variants
   }
-
-  // Efeito para chamar onComplete
-  useEffect(() => {
-    if (isVisible && !hasAnimated) {
-      setHasAnimated(true)
-      onComplete?.()
-    }
-  }, [isVisible, hasAnimated, onComplete])
 
   // Variants para stagger children
   const containerVariants: Variants = {
@@ -140,8 +131,6 @@ function Reveal({
   // Verifica se é um array de children para stagger
   const hasMultipleChildren = Array.isArray(children)
 
-  // Componente principal
-  const MotionComponent = motion.div
 
   // Configurações de viewport
   const viewportConfig = {
@@ -159,7 +148,12 @@ function Reveal({
         whileInView="visible"
         viewport={viewportConfig}
         variants={containerVariants}
-        onViewportEnter={() => setIsVisible(true)}
+        onViewportEnter={() => {
+    if (!isVisible) {
+        setIsVisible(true)
+        onComplete?.()
+    }
+}}
       >
         {React.Children.map(children, (child) => (
           <motion.div variants={childVariants}>
@@ -175,7 +169,7 @@ function Reveal({
     return (
       <motion.div
         className={className}
-        initial={{ ...getInitialPosition(), filter: 'blur(8px)' }}
+        initial={{ ...getInitialPosition, filter: 'blur(8px)' }}
         whileInView={{
           opacity: 1,
           x: 0,
@@ -203,7 +197,8 @@ function Reveal({
       <motion.div
         className={`relative ${className}`}
         initial={{
-          ...getInitialPosition(),
+          ...getInitialPosition,
+          rotate: rotate != 0 ? rotate : undefined,
           background: 'linear-gradient(135deg, transparent 0%, transparent 100%)'
         }}
         whileInView={{

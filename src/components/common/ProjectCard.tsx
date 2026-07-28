@@ -35,23 +35,26 @@ function ProjectCard({
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const cardRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!cardRef.current) return
-      const rect = cardRef.current.getBoundingClientRect()
-      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20
-      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 20
-      setMousePosition({ x, y })
-    }
+ useEffect(() => {
+  if (!isHovered) return
 
-    if (isHovered) {
-      document.addEventListener('mousemove', handleMouseMove)
-    } else {
-      setMousePosition({ x: 0, y: 0 })
-    }
+  const handleMouseMove = (e: MouseEvent) => {
+    if (!cardRef.current) return
 
-    return () => document.removeEventListener('mousemove', handleMouseMove)
-  }, [isHovered])
+    const rect = cardRef.current.getBoundingClientRect()
+
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 20
+
+    setMousePosition({ x, y })
+  }
+
+  document.addEventListener('mousemove', handleMouseMove)
+
+  return () => {
+    document.removeEventListener('mousemove', handleMouseMove)
+  }
+}, [isHovered])
 
   return (
     <div className="group relative h-full">
@@ -78,12 +81,15 @@ function ProjectCard({
         className="relative h-full border-border bg-card/80 backdrop-blur-sm shadow-lg transition-all duration-500 hover:shadow-2xl overflow-hidden"
         style={{
           transform: isHovered
-            ? `perspective(1000px) rotateX(${mousePosition.y * 0.1}deg) rotateY(${mousePosition.x * 0.1}deg) scale(1.02)`
+            ? `perspective(1000px) rotateX(${mousePosition.y * 0.1}deg)`
             : 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)',
           transition: 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
         }}
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+onMouseLeave={() => {
+  setIsHovered(false)
+  setMousePosition({ x: 0, y: 0 })
+}}
       >
         {/* Gradiente de overlay no hover */}
         <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -138,7 +144,7 @@ function ProjectCard({
                 className="relative group/tech rounded-full border border-border/50 px-3 py-1 font-mono text-[10px] text-muted-foreground bg-muted/30 hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all duration-300 cursor-default"
               >
                 {s}
-                <span className="absolute inset-0 rounded-full bg-primary/5 opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300" />
+                <span className="absolute inset-0 rounded-sm bg-primary/5 opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300" />
               </span>
             ))}
           </div>

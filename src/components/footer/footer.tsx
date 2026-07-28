@@ -1,11 +1,15 @@
-import { Mail, Heart, Sparkles, Code, Briefcase, MapPin, ArrowUp } from 'lucide-react'
+import { Mail, Heart, Sparkles, Code, Briefcase, MapPin, ArrowUp, type LucideIcon } from 'lucide-react'
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import {FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaYoutube} from 'react-icons/fa'
+import { motion, AnimatePresence, type Variants } from 'framer-motion'
+import { FaGithub, FaLinkedin} from 'react-icons/fa'
+import type { IconType } from 'react-icons'
+
+
+type SocialIcon = IconType | LucideIcon
 
 type SocialLink = {
   name: string
-  icon: typeof FaGithub
+  icon: SocialIcon
   url: string
   color: string
 }
@@ -22,47 +26,36 @@ const socialLinks: SocialLink[] = [
   {
     name: 'GitHub',
     icon: FaGithub,
-    url: 'https://github.com/yourusername',
-    color: 'hover:text-[#6e5494]'
+    url: 'https://github.com/Erivaldo07',
+    color: 'hover:text-[#6e5494]',
   },
   {
     name: 'LinkedIn',
     icon: FaLinkedin,
-    url: 'https://linkedin.com/in/yourusername',
-    color: 'hover:text-[#0A66C2]'
+    url: 'https://www.linkedin.com/in/erivaldo-manuel-5076492aa/',
+    color: 'hover:text-[#0A66C2]',
   },
-  {
-    name: 'Twitter',
-    icon: FaTwitter,
-    url: 'https://twitter.com/yourusername',
-    color: 'hover:text-[#1DA1F2]'
-  },
-  {
-    name: 'Instagram',
-    icon: FaInstagram,
-    url: 'https://instagram.com/yourusername',
-    color: 'hover:text-[#E4405F]'
-  },
-  {
-    name: 'YouTube',
-    icon: FaYoutube,
-    url: 'https://youtube.com/@yourusername',
-    color: 'hover:text-[#FF0000]'
-  },
-  {
-    name: 'Email',
-    icon: Mail,
-    url: 'mailto:your@email.com',
-    color: 'hover:text-[#EA4335]'
-  }
 ]
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.08,
+      duration: 0.4,
+      ease: 'easeOut',
+    },
+  }),
+}
 
 function Footer({
   variant = 'standard',
   showBackToTop = true,
   showSocial = true,
   showContact = true,
-  className = ''
+  className = '',
 }: FooterProps) {
   const [showScrollTop, setShowScrollTop] = useState(false)
   const currentYear = new Date().getFullYear()
@@ -79,41 +72,18 @@ function Footer({
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: 'easeOut'
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.08,
-        duration: 0.4,
-        ease: 'easeOut'
-      }
-    })
-  }
-
   // Renderização por variante
   const renderFooter = () => {
     switch (variant) {
       case 'minimal':
         return (
-          <footer className={`
-            border-t border-border/50 bg-card/30 backdrop-blur-sm
-            px-4 py-8 text-center text-sm text-muted-foreground
-            ${className}
-          `}>
+          <footer
+            className={`
+              border-t border-border/50 bg-card/30 backdrop-blur-sm
+              px-4 py-8 text-center text-sm text-muted-foreground
+              ${className}
+            `}
+          >
             <div className="max-w-7xl mx-auto">
               <p className="flex items-center justify-center gap-2">
                 © {currentYear} Erivaldo Manuel
@@ -129,10 +99,12 @@ function Footer({
 
       case 'detailed':
         return (
-          <footer className={`
-            border-t border-border/50 bg-card/60 backdrop-blur-md
-            ${className}
-          `}>
+          <footer
+            className={`
+              border-t border-border/50 bg-card/60 backdrop-blur-md
+              ${className}
+            `}
+          >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                 {/* Coluna 1 - Sobre */}
@@ -143,11 +115,10 @@ function Footer({
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.2 }}
                 >
-                  <h3 className="text-sm font-semibold text-foreground mb-3">
-                    Sobre
-                  </h3>
+                  <h3 className="text-sm font-semibold text-foreground mb-3">Sobre</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Desenvolvedor Full Stack apaixonado por criar soluções inovadoras e experiências digitais excepcionais.
+                    Desenvolvedor Full Stack apaixonado por criar soluções inovadoras e experiências digitais
+                    excepcionais.
                   </p>
                   <div className="flex items-center gap-2 mt-3">
                     <Code className="w-4 h-4 text-primary/60" />
@@ -163,12 +134,10 @@ function Footer({
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.2 }}
                 >
-                  <h3 className="text-sm font-semibold text-foreground mb-3">
-                    Links
-                  </h3>
+                  <h3 className="text-sm font-semibold text-foreground mb-3">Links</h3>
                   <ul className="space-y-2">
-                    {['Projetos', 'Sobre', 'Experiência', 'Contato'].map((item, i) => (
-                      <li key={i}>
+                    {['Projetos', 'Sobre', 'Experiência', 'Contato'].map(item => (
+                      <li key={item}>
                         <a
                           href={`#${item.toLowerCase()}`}
                           className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center gap-2 group"
@@ -190,16 +159,11 @@ function Footer({
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.2 }}
                   >
-                    <h3 className="text-sm font-semibold text-foreground mb-3">
-                      Contato
-                    </h3>
+                    <h3 className="text-sm font-semibold text-foreground mb-3">Contato</h3>
                     <ul className="space-y-2">
                       <li className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Mail className="w-3.5 h-3.5 text-primary/60" />
-                        <a
-                          href="mailto:your@email.com"
-                          className="hover:text-primary transition-colors"
-                        >
+                        <a href="mailto:your@email.com" className="hover:text-primary transition-colors">
                           your@email.com
                         </a>
                       </li>
@@ -224,13 +188,11 @@ function Footer({
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.2 }}
                   >
-                    <h3 className="text-sm font-semibold text-foreground mb-3">
-                      Redes Sociais
-                    </h3>
+                    <h3 className="text-sm font-semibold text-foreground mb-3">Redes Sociais</h3>
                     <div className="flex flex-wrap gap-2">
-                      {socialLinks.slice(0, 6).map((social, i) => (
+                      {socialLinks.slice(0, 6).map(social => (
                         <a
-                          key={i}
+                          key={social.name}
                           href={social.url}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -245,7 +207,7 @@ function Footer({
                         </a>
                       ))}
                     </div>
-                    <div className="mt-4 p-3 rounded-lg bg-gradient-to-r from-primary/5 to-primary/10 border border-primary/10">
+                    <div className="mt-4 p-3 rounded-lg bg-linear-to-r from-primary/5 to-primary/10 border border-primary/10">
                       <p className="text-xs text-muted-foreground flex items-center gap-1">
                         <Sparkles className="w-3 h-3 text-primary" />
                         <span>Vamos construir algo incrível juntos!</span>
@@ -273,8 +235,12 @@ function Footer({
                   </span>
                 </div>
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                  <a href="#" className="hover:text-primary transition-colors">Política de Privacidade</a>
-                  <a href="#" className="hover:text-primary transition-colors">Termos de Uso</a>
+                  <a href="#" className="hover:text-primary transition-colors">
+                    Política de Privacidade
+                  </a>
+                  <a href="#" className="hover:text-primary transition-colors">
+                    Termos de Uso
+                  </a>
                 </div>
               </motion.div>
             </div>
@@ -283,10 +249,12 @@ function Footer({
 
       default: // standard
         return (
-          <footer className={`
-            border-t border-border/50 bg-card/30 backdrop-blur-sm
-            ${className}
-          `}>
+          <footer
+            className={`
+              border-t border-border/50 bg-card/30 backdrop-blur-sm
+              ${className}
+            `}
+          >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 {/* Esquerda - Copyright */}
@@ -317,9 +285,9 @@ function Footer({
                     viewport={{ once: true, amount: 0.2 }}
                     className="flex items-center gap-1.5"
                   >
-                    {socialLinks.slice(0, 4).map((social, i) => (
+                    {socialLinks.slice(0, 4).map(social => (
                       <a
-                        key={i}
+                        key={social.name}
                         href={social.url}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -364,7 +332,6 @@ function Footer({
                   </span>
                   <span className="hidden sm:inline">·</span>
                   <span className="flex items-center gap-1">
-                    <Sparkles className="w-3 h-3 text-primary" />
                     <span className="hidden sm:inline">v1.0.0</span>
                   </span>
                 </motion.div>
