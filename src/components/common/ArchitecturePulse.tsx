@@ -1,4 +1,4 @@
-import { Braces, Server, Database, Layers, type LucideIcon, Sparkles, Cpu, Gauge } from 'lucide-react'
+import { Braces, Server, Database, Layers, type LucideIcon,  Cpu } from 'lucide-react'
 import { useEffect, useState, useRef } from 'react'
 
 type Node = {
@@ -9,7 +9,7 @@ type Node = {
   color: string
   status: 'active' | 'idle' | 'warning'
   pulseDelay: number
-  metrics: {
+  metrics?: {
     requests: number
     latency: string
     uptime: string
@@ -21,29 +21,20 @@ const nodes: Node[] = [
     label: 'Frontend',
     sub: 'React · TS · Tailwind',
     icon: Braces,
-    x: 40,
+    x: 50,
     color: '#8B5CF6',
     status: 'active',
     pulseDelay: 0,
-    metrics: {
-      requests: 1247,
-      latency: '45ms',
-      uptime: '99.9%'
-    }
   },
   {
-    label: 'API Gateway',
-    sub: 'Laravel · Fastify',
+    label: 'Backend',
+    sub: 'Node.Js · Laravel',
     icon: Server,
     x: 220,
     color: '#EC4899',
     status: 'active',
     pulseDelay: 0.8,
-    metrics: {
-      requests: 983,
-      latency: '120ms',
-      uptime: '99.7%'
-    }
+
   },
   {
     label: 'Database',
@@ -53,11 +44,6 @@ const nodes: Node[] = [
     color: '#06B6D4',
     status: 'active',
     pulseDelay: 1.6,
-    metrics: {
-      requests: 2156,
-      latency: '28ms',
-      uptime: '99.95%'
-    }
   },
   {
     label: 'Real-time',
@@ -67,11 +53,6 @@ const nodes: Node[] = [
     color: '#F59E0B',
     status: 'warning',
     pulseDelay: 2.4,
-    metrics: {
-      requests: 567,
-      latency: '89ms',
-      uptime: '98.5%'
-    }
   },
 ]
 
@@ -123,39 +104,16 @@ function ArchitecturePulse() {
   }
 
   return (
-    <div className="w-full glass-card p-4 sm:p-6 rounded-2xl transition-all duration-300 hover:shadow-xl">
+    <div className="w-full glass-card p-4 sm:p-6 rounded-sm transition-all duration-300 hover:shadow-xl">
       {/* Header com métricas */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-3">
         <div className="flex items-center gap-2">
-          <div className="p-2 rounded-xl bg-linear-to-br from-primary/20 to-primary/5">
+          <div className="p-2 rounded-sm bg-linear-to-br from-primary/20 to-primary/5">
             <Cpu className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
           </div>
           <div>
             <span className="text-sm sm:text-base font-semibold">Arquitetura do Sistema</span>
-            <div className="flex items-center gap-2 mt-0.5">
-              <div className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-[10px] text-muted-foreground">Operacional</span>
-              </div>
-              <div className="w-px h-3 bg-border" />
-              <div className="flex items-center gap-1">
-                <Gauge className="w-3 h-3 text-muted-foreground" />
-                <span className="text-[10px] text-muted-foreground">99.8% uptime</span>
-              </div>
-            </div>
           </div>
-        </div>
-
-        <div className="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs text-muted-foreground bg-muted/30 px-3 py-1.5 rounded-full">
-          <span className="flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
-            {nodes.filter(n => n.status === 'active').length} ativos
-          </span>
-          <span className="flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-yellow-500" />
-            {nodes.filter(n => n.status === 'warning').length} avisos
-          </span>
-          <Sparkles className="w-3 h-3 text-primary" />
         </div>
       </div>
 
@@ -300,7 +258,6 @@ function ArchitecturePulse() {
           {dataFlow.map((flow, idx) => {
             const fromNode = nodes[flow.from]
             const toNode = nodes[flow.to]
-            const midX = (fromNode.x + toNode.x) / 2 + 38
 
             return (
               <g key={`flow-${idx}`}>
@@ -463,39 +420,6 @@ function ArchitecturePulse() {
                   <animate attributeName="opacity" values="0.3;0;0.3" dur="2s" repeatCount="indefinite" />
                 </circle>
 
-                {/* Métricas em tooltip visual */}
-                {isHovered && (
-                  <g transform="translate(-20, 108)">
-                    <rect
-                      x="0"
-                      y="-4"
-                      width="116"
-                      height="42"
-                      rx="8"
-                      fill="var(--card)"
-                      stroke="var(--border)"
-                      strokeWidth="1"
-                      filter="url(#shadow)"
-                    />
-                    <text x="8" y="10" fill="var(--muted-foreground)" fontSize="8" fontFamily="monospace">
-                      <tspan>Req: </tspan>
-                      <tspan fill="var(--foreground)">{n.metrics.requests}</tspan>
-                    </text>
-                    <text x="58" y="10" fill="var(--muted-foreground)" fontSize="8" fontFamily="monospace">
-                      <tspan>Lat: </tspan>
-                      <tspan fill="var(--foreground)">{n.metrics.latency}</tspan>
-                    </text>
-                    <text x="8" y="26" fill="var(--muted-foreground)" fontSize="8" fontFamily="monospace">
-                      <tspan>Uptime: </tspan>
-                      <tspan fill="var(--foreground)">{n.metrics.uptime}</tspan>
-                    </text>
-                    <text x="58" y="26" fill="var(--muted-foreground)" fontSize="8" fontFamily="monospace">
-                      <tspan>Status: </tspan>
-                      <tspan fill={statusColor}>{n.status.toUpperCase()}</tspan>
-                    </text>
-                  </g>
-                )}
-
                 {/* Label com sombra */}
                 <text
                   x="38"
@@ -527,42 +451,7 @@ function ArchitecturePulse() {
               </g>
             )
           })}
-
-          {/* Footer com estatísticas animadas */}
-          <g transform="translate(20, 180)">
-            <rect x="0" y="-6" width="660" height="28" rx="6" fill="var(--muted)" opacity="0.05" />
-            <text x="20" y="12" fill="var(--muted-foreground)" fontSize="9" className="select-none">
-              <tspan>⚡ </tspan>
-              <tspan fill="var(--foreground)">{Math.floor(Math.random() * 100 + 900)}</tspan>
-              <tspan> req/s  •  </tspan>
-              <tspan fill="var(--foreground)">{Math.floor(Math.random() * 20 + 40)}ms</tspan>
-              <tspan> média  •  </tspan>
-              <tspan fill="var(--foreground)">99.8%</tspan>
-              <tspan> disponibilidade</tspan>
-            </text>
-
-            <text x="640" y="12" fill="var(--muted-foreground)" fontSize="9" textAnchor="end" className="select-none">
-              <tspan>🔄 </tspan>
-              <tspan fill="var(--primary)">sincronizado</tspan>
-            </text>
-          </g>
         </svg>
-      </div>
-
-      {/* Indicadores mobile */}
-      <div className="flex sm:hidden items-center justify-center gap-4 mt-4 text-[10px] text-muted-foreground">
-        <span className="flex items-center gap-1">
-          <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
-          Ativo
-        </span>
-        <span className="flex items-center gap-1">
-          <span className="w-1.5 h-1.5 rounded-full bg-yellow-500" />
-          Aviso
-        </span>
-        <span className="flex items-center gap-1">
-          <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
-          Inativo
-        </span>
       </div>
     </div>
   )
