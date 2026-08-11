@@ -201,7 +201,7 @@ function Home() {
                   {/* Avatar Placeholder - Substitua pela sua imagem */}
                   <div className="w-full h-full rounded-full bg-linear-to-br from-primary/20 to-primary/5 border-2 border-primary/20 flex items-center justify-center">
                     <div className="text-center">
-                      <div className="text-6xl sm:text-7xl mb-2">👨‍💻</div>
+                      <div className="text-6xl sm:text-7xl mb-2">👨</div>
                       <p className="text-sm text-muted-foreground">Desenvolvedor</p>
                     </div>
                   </div>
@@ -375,46 +375,6 @@ function Home() {
         </div>
       </div>
 
-      {/* Testimonials Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
-        <Reveal>
-          <div className="text-center mb-12">
-            <span className="text-xs font-mono uppercase tracking-wider text-primary/80 bg-primary/10 px-3 py-1 rounded-full">
-              Depoimentos
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold mt-4">
-              O que dizem <span className="gradient-text">sobre mim</span>
-            </h2>
-          </div>
-        </Reveal>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          {testimonials.map((testimonial, index) => (
-            <Reveal key={index} delay={index * 150}>
-              <div className="bg-card/50 border border-border/50 rounded-xl p-6 hover:border-primary/30 transition-all duration-300">
-                <div className="flex items-center gap-1 mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`w-4 h-4 ${i < testimonial.rating ? 'text-yellow-500 fill-yellow-500' : 'text-muted'}`} />
-                  ))}
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  "{testimonial.text}"
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-linear-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                    <span className="text-lg">👤</span>
-                  </div>
-                  <div>
-                    <p className="font-medium text-sm">{testimonial.name}</p>
-                    <p className="text-xs text-muted-foreground">{testimonial.role}</p>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-
       {/* CTA Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
@@ -441,13 +401,6 @@ function Home() {
               >
                 <Mail size={18} />
                 Iniciar Conversa
-              </a>
-              <a
-                href="#contacto"
-                className="btn-secondary"
-              >
-                <Phone size={18} />
-                Agendar Chamada
               </a>
             </div>
           </Reveal>
