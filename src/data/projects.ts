@@ -1,4 +1,4 @@
-import { GraduationCap, Compass, Stethoscope, Landmark, type LucideIcon } from 'lucide-react'
+import { GraduationCap, Compass, Landmark, type LucideIcon } from 'lucide-react'
 
 export type Project = {
   slug: string
@@ -24,7 +24,7 @@ export const projects: Project[] = [
     tag: 'Gestão Educacional',
     title: 'SIPE',
     description:
-      'Sistema de gestão académica e de secretaria para municípios e comunas, com módulos de matrícula, turmas e relatórios. Arquitetura com BaseController reutilizável e templates de CRUD paginado no frontend.',
+      'Sistema Integrado Provincial da Educação, desenvolvido para otimizar a gestão educacional a nivel provincial, permitindo o gerenciamento eficiente de informações e processos educacionais e promoção da qualidade do ensino.',
     stack: ['Laravel', 'React', 'Inertia.js', 'MySQL'],
   },
   {
@@ -37,21 +37,12 @@ export const projects: Project[] = [
     stack: ['React', 'TypeScript', 'Fastify', 'Prisma'],
   },
   {
-    slug: 'plataforma-hospitalar',
-    icon: Stethoscope,
-    tag: 'Saúde',
-    title: 'Plataforma Hospitalar',
-    description:
-      'Sistema de consulta e triagem com chat clínico em tempo real via WebSocket, autenticação segura e sincronização de sessão entre paciente e profissional de saúde.',
-    stack: ['React', 'TypeScript', 'Fastify', 'Prisma', 'MySQL'],
-  },
-  {
     slug: 'acesso-etp',
     icon: Landmark,
     tag: 'Serviço Público',
     title: 'Acesso ETP',
     description:
-      'Plataforma governamental de admissão ao Ensino Técnico-Profissional. Redesenho da página de consulta de resultados com foco em clareza, confiança institucional e forte responsividade móvel.',
+      'Plataforma governamental de admissão ao Ensino Técnico-Profissional. Redesenho da página de consulta de resultados com foco em clareza, confiança institucional e forte responsividade móvel e desktop.',
     stack: ['Laravel', 'Blade/React', 'MySQL'],
   },
 ]
