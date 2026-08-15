@@ -2,12 +2,10 @@ import Reveal, { RevealZoom } from '@/components/common/Reveal'
 import { skillGroups } from '@/data/skills'
 import { motion } from 'framer-motion'
 import {
-  Briefcase,
   Heart,
   Target,
   Sparkles,
   Award,
-  Clock,
   MapPin,
   Code2,
   Server,
@@ -19,7 +17,6 @@ import {
   Rocket,
   CheckCircle,
   ArrowRight,
-  MessageCircle,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
@@ -108,12 +105,7 @@ const journeyStats = [
     suffix: '+',
     icon: Code2,
   },
-  {
-    label: 'Horas de Código',
-    value: 2000,
-    suffix: '+',
-    icon: Clock,
-  },
+
 ]
 
 // ============================================================
@@ -206,9 +198,9 @@ function About() {
       <div className="relative">
         {/* Background decorations */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-primary/5 blur-3xl" />
+          <div className="absolute top-0 right-0 w-125 h-125 rounded-full bg-primary/5 blur-3xl" />
 
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-primary/5 blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-100 h-100 rounded-full bg-primary/5 blur-3xl" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
@@ -245,30 +237,6 @@ function About() {
                   resolução de problemas e criação de experiências digitais
                   que realmente fazem a diferença.
                 </p>
-              </Reveal>
-
-              <Reveal delay={300}>
-                <div className="flex flex-wrap gap-3 mt-8">
-                  <a
-                    href="#experiencia"
-                    className="btn-primary"
-                  >
-                    <Briefcase size={18} />
-
-                    Minha trajetória
-
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
-
-                  <a
-                    href="#contato"
-                    className="btn-secondary"
-                  >
-                    <MessageCircle size={18} />
-
-                    Vamos conversar
-                  </a>
-                </div>
               </Reveal>
             </div>
 
@@ -744,69 +712,6 @@ function About() {
         </Reveal>
 
       </div>
-
-      {/* ======================================================
-          CTA
-      ====================================================== */}
-
-      <div
-        id="contato"
-        className="relative overflow-hidden border-t border-border/50"
-      >
-
-        <div className="absolute inset-0 -z-10">
-
-          <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-primary/5" />
-
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-
-        </div>
-
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center">
-
-          <Reveal>
-
-            <div className="flex justify-center mb-6">
-
-              <div className="p-4 rounded-2xl bg-primary/10 border border-primary/10">
-                <MessageCircle className="w-8 h-8 text-primary" />
-              </div>
-
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5">
-              Vamos construir algo{' '}
-              <span className="gradient-text">
-                incrível
-              </span>{' '}
-              juntos?
-            </h2>
-
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
-              Se tens uma ideia, projeto ou oportunidade,
-              vamos conversar e descobrir como posso ajudar.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-4">
-
-              <a
-                href="mailto:seuemail@email.com"
-                className="btn-primary"
-              >
-                <MessageCircle size={18} />
-
-                Entrar em contacto
-
-                <ArrowRight className="w-4 h-4" />
-              </a>
-
-            </div>
-
-          </Reveal>
-
-        </div>
-      </div>
-
     </section>
   )
 }
