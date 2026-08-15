@@ -12,6 +12,7 @@ import {
   Download,
   Calendar,
   MessageCircle,
+  Palette,
 } from 'lucide-react'
 import Reveal, { RevealZoom } from '@/components/common/Reveal'
 import ArchitecturePulse from '@/components/common/ArchitecturePulse'
@@ -19,6 +20,7 @@ import { profile } from '@/data/profile'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import profile1 from "../../assets/picture/profile1.jpeg"
 
 // ============================================================
 // TYPES
@@ -152,26 +154,25 @@ const skills = [
 const experiences = [
   {
     title: 'Desenvolvedor Full Stack',
-    company: 'Freelancer',
-    period: '2023 - Presente',
+    period: '2024-2025',
     description:
       'Desenvolvimento de aplicações web completas, desde o design até a implantação em produção.',
     achievements: [
-      'Criação de plataformas para turismo, saúde e educação',
+      'Criação de plataformas para turismo',
       'Implementação de sistemas em tempo real com WebSocket',
       'Otimização de performance e SEO',
     ],
   },
   {
     title: 'Desenvolvedor Frontend',
-    company: 'Projetos Pessoais',
-    period: '2022 - 2023',
+    company: 'Sosoft',
+    period: '2025 - 2026',
     description:
       'Desenvolvimento de interfaces modernas e responsivas com React e TypeScript.',
     achievements: [
-      'Criação de 10+ projetos open source',
-      'Contribuição em comunidades de desenvolvimento',
-      'Aprendizado contínuo de novas tecnologias',
+      'Participação na criação do Sistema Integrado Provincial da Educação',
+      'Contribuição na Plataforma de Acesso ao Ensino Tecnico Profissional',
+      'Contribuição na Plataforma de Gestão Academica do Instituto Polictenico Industrial de Luanda',
     ],
   },
 ]
@@ -324,64 +325,149 @@ function Home() {
                 LADO DIREITO - AVATAR
             ================================================== */}
 
-            <RevealZoom
-              delay={200}
-              className="flex justify-center lg:justify-end"
-            >
-              <div className="relative">
-                <div className="absolute inset-0 bg-linear-to-r from-primary/20 to-primary/5 rounded-full blur-3xl animate-pulse" />
 
-                <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-                  {/* Avatar Placeholder */}
-                  <div className="w-full h-full rounded-full bg-linear-to-br from-primary/20 to-primary/5 border-2 border-primary/20 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="text-6xl sm:text-7xl mb-2">
-                        👨
-                      </div>
 
-                      <p className="text-sm text-muted-foreground">
-                        Desenvolvedor
-                      </p>
-                    </div>
+            <RevealZoom delay={200} className="flex justify-center lg:justify-end">
+              <div className="relative w-full max-w-70 sm:max-w-sm lg:max-w-md aspect-square mx-auto lg:mx-0">
+
+                {/* Camada 1 - Glow de fundo com gradiente mais suave */}
+                <div className="absolute -inset-12 sm:-inset-16 bg-linear-to-br from-primary/5 via-primary/10 to-transparent rounded-full blur-3xl" />
+
+                {/* Camada 2 - Glow médio com movimento sutil */}
+                <motion.div
+                  className="absolute -inset-6 sm:-inset-8 bg-linear-to-tr from-primary/20 via-primary/5 to-transparent rounded-full blur-2xl"
+                  animate={{
+                    scale: [1, 1.05, 1],
+                    opacity: [0.6, 1, 0.6],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+
+                {/* Camada 3 - Padrão de pontos refinado */}
+                <div
+                  className="absolute -inset-8 sm:-inset-12 opacity-10 pointer-events-none"
+                  style={{
+                    backgroundImage: `
+              radial-gradient(circle at 20% 50%, var(--color-primary) 1px, transparent 1px),
+              radial-gradient(circle at 80% 50%, var(--color-primary) 1px, transparent 1px)
+            `,
+                    backgroundSize: "40px 40px, 40px 40px",
+                    backgroundPosition: "0 0, 20px 20px",
+                    maskImage: "radial-gradient(circle at center, black 30%, transparent 65%)",
+                    WebkitMaskImage: "radial-gradient(circle at center, black 30%, transparent 65%)",
+                  }}
+                />
+
+                {/* Sombra de "chão" aprimorada */}
+                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[75%] h-8 bg-black/15 dark:bg-black/30 rounded-full blur-2xl" />
+
+                {/* Container da imagem com morphing refinado */}
+                <motion.div
+                  className="relative w-full h-full overflow-hidden shadow-2xl ring-1 ring-primary/5"
+                  animate={{
+                    borderRadius: [
+                      "60% 40% 50% 50% / 50% 45% 55% 50%",
+                      "45% 55% 55% 45% / 50% 55% 45% 50%",
+                      "55% 45% 45% 55% / 40% 55% 45% 60%",
+                      "60% 40% 50% 50% / 50% 45% 55% 50%",
+                    ],
+                  }}
+                  transition={{
+                    duration: 16,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <img
+                    src={profile1}
+                    alt="Foto de Erivaldo Manuel"
+                    className="w-full h-full object-cover grayscale-15 contrast-[1.05]"
+                  />
+
+                  {/* Overlay com gradiente e blending sutil */}
+                  <div className="absolute inset-0 bg-linear-to-t from-primary/15 via-primary/5 to-transparent mix-blend-overlay pointer-events-none" />
+
+                  {/* Overlay de borda suave */}
+                  <div className="absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/5 pointer-events-none" />
+                </motion.div>
+
+                {/* Badge principal - React com animação mais refinada */}
+                <motion.div
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{
+                    duration: 3.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute top-[6%] -right-1 sm:-right-3 bg-background/80 backdrop-blur-sm border border-primary/10 rounded-xl px-3 py-1.5 sm:px-4 sm:py-2 shadow-lg shadow-primary/5"
+                >
+                  <div className="flex items-center gap-2 text-xs sm:text-sm font-medium">
+                    <Sparkles className="w-3.5 h-3.5 text-yellow-400 shrink-0" />
+                    <span className="text-foreground/80">React</span>
+                    <span className="hidden sm:inline text-muted-foreground/50">·</span>
+                    <span className="hidden sm:inline text-muted-foreground/70 text-[10px]">19.0</span>
                   </div>
+                </motion.div>
 
-                  {/* React Badge */}
-                  <motion.div
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                    }}
-                    className="absolute -top-4 -right-4 bg-card border border-border rounded-xl px-3 py-2 shadow-lg"
-                  >
-                    <div className="flex items-center gap-2 text-xs">
-                      <Sparkles className="w-3 h-3 text-yellow-500" />
+                {/* Badge secundário - TypeScript com delay diferente */}
+                <motion.div
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.5,
+                  }}
+                  className="absolute bottom-[8%] -left-1 sm:-left-3 bg-background/80 backdrop-blur-sm border border-primary/10 rounded-xl px-3 py-1.5 sm:px-4 sm:py-2 shadow-lg shadow-primary/5"
+                >
+                  <div className="flex items-center gap-2 text-xs sm:text-sm font-medium">
+                    <Zap className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                    <span className="text-foreground/80">TypeScript</span>
+                    <span className="hidden sm:inline text-muted-foreground/50">·</span>
+                    <span className="hidden sm:inline text-muted-foreground/70 text-[10px]">5.0</span>
+                  </div>
+                </motion.div>
 
-                      <span className="font-medium">
-                        React
-                      </span>
-                    </div>
-                  </motion.div>
+                {/* Badge opcional - Framework/Stack */}
+                <motion.div
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{
+                    duration: 4.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1.2,
+                  }}
+                  className="absolute top-[15%] -left-1 sm:-left-2 bg-background/60 backdrop-blur-sm border border-primary/5 rounded-full px-2.5 py-1 sm:px-3 sm:py-1.5 shadow-sm"
+                >
+                  <div className="flex items-center gap-1.5 text-[9px] sm:text-[10px] text-muted-foreground">
+                    <Code2 className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                    <span>Next.js</span>
+                  </div>
+                </motion.div>
 
-                  {/* TypeScript Badge */}
-                  <motion.div
-                    animate={{ y: [0, 10, 0] }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      delay: 1,
-                    }}
-                    className="absolute -bottom-4 -left-4 bg-card border border-border rounded-xl px-3 py-2 shadow-lg"
-                  >
-                    <div className="flex items-center gap-2 text-xs">
-                      <Zap className="w-3 h-3 text-primary" />
+                {/* Badge de design system */}
+                <motion.div
+                  animate={{ y: [0, 6, 0] }}
+                  transition={{
+                    duration: 3.8,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.8,
+                  }}
+                  className="absolute bottom-[22%] -right-1 sm:-right-2 bg-background/60 backdrop-blur-sm border border-primary/5 rounded-full px-2.5 py-1 sm:px-3 sm:py-1.5 shadow-sm"
+                >
+                  <div className="flex items-center gap-1.5 text-[9px] sm:text-[10px] text-muted-foreground">
+                    <Palette className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                    <span>Tailwind</span>
+                  </div>
+                </motion.div>
 
-                      <span className="font-medium">
-                        TypeScript
-                      </span>
-                    </div>
-                  </motion.div>
-                </div>
+                {/* Nome e cargo sobrepostos (opcional) */}
+
               </div>
             </RevealZoom>
           </div>
@@ -439,9 +525,9 @@ function Home() {
             </span>
 
             <h2 className="text-3xl sm:text-4xl font-bold mt-4">
-              Tecnologias que{' '}
+              Stack de{' '}
               <span className="gradient-text">
-                domino
+                Tecnologias
               </span>
             </h2>
 
@@ -550,11 +636,10 @@ function Home() {
                 delay={index * 150}
               >
                 <div
-                  className={`relative flex flex-col md:flex-row gap-8 mb-12 ${
-                    index % 2 === 0
-                      ? 'md:pr-12'
-                      : 'md:pl-12 md:flex-row-reverse'
-                  }`}
+                  className={`relative flex flex-col md:flex-row gap-8 mb-12 ${index % 2 === 0
+                    ? 'md:pr-12'
+                    : 'md:pl-12 md:flex-row-reverse'
+                    }`}
                 >
                   {/* Timeline marker */}
                   <div className="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-primary border-4 border-card transform -translate-x-1/2 z-10">
@@ -562,11 +647,10 @@ function Home() {
                   </div>
 
                   <div
-                    className={`flex-1 ml-12 md:ml-0 ${
-                      index % 2 === 0
-                        ? 'md:text-right'
-                        : ''
-                    }`}
+                    className={`flex-1 ml-12 md:ml-0 ${index % 2 === 0
+                      ? 'md:text-right'
+                      : ''
+                      }`}
                   >
                     <div className="bg-card border border-border/50 rounded-xl p-6 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5">
                       {/* Job title */}
