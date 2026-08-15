@@ -106,8 +106,8 @@ function About() {
       {/* Hero da página Sobre */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-primary/10 via-transparent to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-primary/5 via-transparent to-transparent rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-linear-to-bl from-primary/10 via-transparent to-transparent rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-linear-to-tr from-primary/5 via-transparent to-transparent rounded-full blur-3xl" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-8">
@@ -204,7 +204,7 @@ function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5 }}
-                  className="mt-4 p-4 bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 rounded-xl text-center"
+                  className="mt-4 p-4 bg-linear-to-r from-primary/10 to-primary/5 border border-primary/20 rounded-xl text-center"
                 >
                   <div className="flex items-center justify-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
@@ -275,7 +275,7 @@ function About() {
                 whileHover={{ y: -4 }}
                 className="group relative bg-card border border-border/50 rounded-xl p-6 hover:border-primary/30 transition-all duration-300 hover:shadow-lg"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 <div className="relative">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
@@ -285,7 +285,7 @@ function About() {
                   <ul className="space-y-2">
                     {group.items.map((item) => (
                       <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <CheckCircle className="w-4 h-4 text-primary/70 mt-0.5 flex-shrink-0" />
+                        <CheckCircle className="w-4 h-4 text-primary/70 mt-0.5 shrink-0" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -346,7 +346,7 @@ function About() {
 
         <div className="relative">
           {/* Linha do tempo simplificada */}
-          <div className="absolute left-4 md:left-1/2 h-full w-0.5 bg-gradient-to-b from-primary/20 via-primary/40 to-primary/20 -translate-x-1/2" />
+          <div className="absolute left-4 md:left-1/2 h-full w-0.5 bg-linear-to-b from-primary/20 via-primary/40 to-primary/20 -translate-x-1/2" />
 
           {achievements.map((item, index) => (
             <Reveal key={index} delay={index * 150}>
@@ -376,7 +376,7 @@ function About() {
       {/* CTA - Vamos Trabalhar Juntos */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/5 via-transparent to-primary/5" />
+          <div className="absolute top-0 left-0 w-full h-full bg-linear-to-br from-primary/5 via-transparent to-primary/5" />
         </div>
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16 text-center">
