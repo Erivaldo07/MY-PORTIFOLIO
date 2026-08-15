@@ -1,4 +1,4 @@
-import { Mail, Phone, Award, Briefcase, Code2, Users, Sparkles, ArrowRight, CheckCircle, Clock, Star, Zap, Download, Calendar, MessageCircle } from 'lucide-react'
+import { Mail, Award, Briefcase, Code2, Users, Sparkles, ArrowRight, CheckCircle, Clock, Zap, Download, Calendar, MessageCircle } from 'lucide-react'
 import Reveal, {  RevealZoom } from '@/components/common/Reveal'
 import ArchitecturePulse from '@/components/common/ArchitecturePulse'
 import { profile } from '@/data/profile'
@@ -17,8 +17,8 @@ const stats = [
 const skills = [
   { name: 'React & Next.js', level: 90, color: '#61DAFB' },
   { name: 'TypeScript', level: 85, color: '#3178C6' },
-  { name: 'Node.js', level: 80, color: '#339933' },
-  { name: 'Tailwind CSS', level: 95, color: '#06B6D4' },
+  { name: 'Node.js', level: 88, color: '#339933' },
+  { name: 'Tailwind CSS', level: 90, color: '#06B6D4' },
   { name: 'Laravel', level: 75, color: '#FF2D20' },
   { name: 'MySQL & Prisma', level: 80, color: '#4479A1' },
 ]
@@ -48,26 +48,11 @@ const experiences = [
   }
 ]
 
-const testimonials = [
-  {
-    name: 'Cliente Anônimo',
-    role: 'CEO de Startup',
-    text: 'Trabalho excepcional! Entregou um produto incrível que superou minhas expectativas.',
-    rating: 5
-  },
-  {
-    name: 'Cliente Anônimo',
-    role: 'Gestor de Projeto',
-    text: 'Profissional dedicado e muito criativo. Recomendo fortemente!',
-    rating: 5
-  }
-]
-
 function Home() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    setIsVisible(true)
+    setIsVisible (true)
   }, [])
 
   // Animação de contagem
