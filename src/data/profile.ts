@@ -6,4 +6,5 @@ export const profile = {
   phoneHref: 'tel:+244944576131',
   github: 'https://github.com/SEU_USERNAME',
   linkedin: 'https://linkedin.com/in/SEU_USERNAME',
+  description: 'Sou um desenvolvedor web full-stack apaixonado por criar soluções inovadoras e eficientes. Com experiência em diversas tecnologias, busco constantemente aprimorar minhas habilidades e contribuir para projetos desafiadores.',
 }
