@@ -1,9 +1,9 @@
-import { Phone, Mail, MapPin, Send, MessageCircle, Clock, CheckCircle, ArrowRight, Sparkles, Users, Coffee, Heart,ChevronDown } from 'lucide-react'
+import { Phone, Mail, MapPin, Send, MessageCircle, Clock, CheckCircle, ArrowRight, Sparkles, Users, Coffee, Heart, ChevronDown } from 'lucide-react'
 import Reveal, { RevealZoom } from '@/components/common/Reveal'
 import { profile } from '@/data/profile'
-import { useState, useRef} from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FaGithub, FaLinkedin} from 'react-icons/fa'
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
 
 // Dados de exemplo
 const contactMethods = [
@@ -44,7 +44,7 @@ const contactMethods = [
 const socialLinks = [
   { icon: FaGithub, url: profile.github, label: 'GitHub', color: '#6e5494' },
   { icon: FaLinkedin, url: profile.linkedin, label: 'LinkedIn', color: '#0A66C2' },
- 
+
 ]
 
 const faqs = [
@@ -66,66 +66,15 @@ const faqs = [
   }
 ]
 
-const workHours = [
-  { day: 'Segunda - Sexta', hours: '9:00 - 18:00' },
-  { day: 'Sábado', hours: '9:00 - 13:00' },
-  { day: 'Domingo', hours: 'Fechado' },
-]
-
 function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  })
-  const [errors, setErrors] = useState<Record<string, string>>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+
+
   const [activeFaq, setActiveFaq] = useState<number | null>(null)
   const formRef = useRef<HTMLFormElement>(null)
 
-  // Validar formulário
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {}
 
-    if (!formData.name.trim()) {
-      newErrors.name = 'Nome é obrigatório'
-    }
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email é obrigatório'
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Email inválido'
-    }
-    if (!formData.message.trim()) {
-      newErrors.message = 'Mensagem é obrigatória'
-    }
 
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
 
-  // Submit do formulário
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    if (!validateForm()) {
-      return
-    }
-
-    setIsSubmitting(true)
-
-    // Simular envio
-    await new Promise(resolve => setTimeout(resolve, 1500))
-
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    setFormData({ name: '', email: '', subject: '', message: '' })
-
-    setTimeout(() => {
-      setIsSubmitted(false)
-    }, 5000)
-  }
 
   // Scroll para o formulário
   const scrollToForm = () => {
@@ -137,8 +86,8 @@ function Contact() {
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-primary/10 via-transparent to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-primary/5 via-transparent to-transparent rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-linear-to-bl from-primary/10 via-transparent to-transparent rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-linear-to-tr from-primary/5 via-transparent to-transparent rounded-full blur-3xl" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-8">
@@ -244,170 +193,7 @@ function Contact() {
         </div>
       </div>
 
-      {/* Formulário de Contato */}
-      <div ref={formRef} className="border-t border-border/50 bg-card/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Info do formulário */}
-            <Reveal>
-              <div>
-                <span className="text-xs font-mono uppercase tracking-wider text-primary/80 bg-primary/10 px-3 py-1 rounded-full">
-                  Formulário
-                </span>
-                <h2 className="text-2xl font-bold mt-4 mb-2">
-                  Envie uma <span className="gradient-text">mensagem</span>
-                </h2>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                  Preencha o formulário e entrarei em contato o mais breve possível.
-                  Respondo todas as mensagens em até 24 horas.
-                </p>
 
-                {/* Horário de trabalho */}
-                <div className="p-4 rounded-xl bg-card/50 border border-border/50">
-                  <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-primary" />
-                    Horário de Atendimento
-                  </h3>
-                  <div className="space-y-1.5">
-                    {workHours.map((item, index) => (
-                      <div key={index} className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">{item.day}</span>
-                        <span className="font-medium">{item.hours}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-
-            {/* Formulário */}
-            <Reveal delay={100} className="lg:col-span-2">
-              <div className="bg-card/50 border border-border/50 rounded-2xl p-6 sm:p-8 shadow-lg">
-                <AnimatePresence mode="wait">
-                  {isSubmitted ? (
-                    <motion.div
-                      key="success"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      className="text-center py-12"
-                    >
-                      <div className="flex justify-center mb-4">
-                        <div className="p-4 rounded-full bg-green-500/10">
-                          <CheckCircle className="w-12 h-12 text-green-500" />
-                        </div>
-                      </div>
-                      <h3 className="text-2xl font-bold mb-2">Mensagem Enviada! 🎉</h3>
-                      <p className="text-muted-foreground">
-                        Recebi sua mensagem! Entrarei em contato em breve.
-                      </p>
-                    </motion.div>
-                  ) : (
-                    <motion.form
-                      key="form"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      onSubmit={handleSubmit}
-                      className="space-y-4"
-                    >
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <div>
-                          <label htmlFor="name" className="block text-sm font-medium mb-1.5">
-                            Nome <span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            id="name"
-                            type="text"
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            className={`w-full px-4 py-2.5 rounded-lg border ${
-                              errors.name ? 'border-red-500' : 'border-border'
-                            } bg-background/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 text-sm`}
-                            placeholder="Seu nome completo"
-                          />
-                          {errors.name && (
-                            <p className="text-xs text-red-500 mt-1">{errors.name}</p>
-                          )}
-                        </div>
-                        <div>
-                          <label htmlFor="email" className="block text-sm font-medium mb-1.5">
-                            Email <span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            id="email"
-                            type="email"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className={`w-full px-4 py-2.5 rounded-lg border ${
-                              errors.email ? 'border-red-500' : 'border-border'
-                            } bg-background/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 text-sm`}
-                            placeholder="seu@email.com"
-                          />
-                          {errors.email && (
-                            <p className="text-xs text-red-500 mt-1">{errors.email}</p>
-                          )}
-                        </div>
-                      </div>
-
-                      <div>
-                        <label htmlFor="subject" className="block text-sm font-medium mb-1.5">
-                          Assunto
-                        </label>
-                        <input
-                          id="subject"
-                          type="text"
-                          value={formData.subject}
-                          onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-lg border border-border bg-background/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 text-sm"
-                          placeholder="Assunto da mensagem"
-                        />
-                      </div>
-
-                      <div>
-                        <label htmlFor="message" className="block text-sm font-medium mb-1.5">
-                          Mensagem <span className="text-red-500">*</span>
-                        </label>
-                        <textarea
-                          id="message"
-                          rows={5}
-                          value={formData.message}
-                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                          className={`w-full px-4 py-2.5 rounded-lg border ${
-                            errors.message ? 'border-red-500' : 'border-border'
-                          } bg-background/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 text-sm resize-none`}
-                          placeholder="Descreva seu projeto ou ideia..."
-                        />
-                        {errors.message && (
-                          <p className="text-xs text-red-500 mt-1">{errors.message}</p>
-                        )}
-                      </div>
-
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="btn-primary w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                            Enviando...
-                          </>
-                        ) : (
-                          <>
-                            <Send size={18} />
-                            Enviar Mensagem
-                          </>
-                        )}
-                      </button>
-                    </motion.form>
-                  )}
-                </AnimatePresence>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </div>
 
       {/* FAQ Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
@@ -440,7 +226,7 @@ function Contact() {
                     animate={{ rotate: activeFaq === index ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <ChevronDown className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                    <ChevronDown className="w-5 h-5 text-muted-foreground shrink-0" />
                   </motion.div>
                 </button>
 
