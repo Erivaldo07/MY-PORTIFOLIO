@@ -1,4 +1,4 @@
-import { GraduationCap, Compass, Stethoscope, Landmark, type LucideIcon } from 'lucide-react'
+import { GraduationCap, Compass, Landmark, type LucideIcon } from 'lucide-react'
 
 export type Project = {
   slug: string
@@ -14,6 +14,7 @@ export type Project = {
   forks?: number
   featured?: boolean
   date?: string
+  views?: number
   category?: string
 }
 
@@ -23,35 +24,29 @@ export const projects: Project[] = [
     icon: GraduationCap,
     tag: 'Gestão Educacional',
     title: 'SIPE',
+    liveUrl: 'https://luanda.sipe.ao/',
     description:
-      'Sistema de gestão académica e de secretaria para municípios e comunas, com módulos de matrícula, turmas e relatórios. Arquitetura com BaseController reutilizável e templates de CRUD paginado no frontend.',
+      'Sistema Integrado Provincial da Educação, desenvolvido para otimizar a gestão educacional a nivel provincial, permitindo o gerenciamento eficiente de informações e processos educacionais e promoção da qualidade do ensino.',
     stack: ['Laravel', 'React', 'Inertia.js', 'MySQL'],
   },
   {
-    slug: 'turismo-angola',
+    slug: 'Portal do Ipil',
     icon: Compass,
-    tag: 'Turismo',
-    title: 'Plataforma de Turismo de Angola',
+    tag: 'Gestão Acadêmica',
+    title: 'Plataforma de gestão academica',
+    liveUrl: 'https://portal.ipil.ao/login',
     description:
-      'Registo de atrações turísticas em formulário multi-etapas, chat em tempo real entre turistas e negócios, navegação com mapas (OpenStreetMap + Leaflet) e o assistente virtual "Kamba", alimentado por IA generativa.',
+      'Plataforma de gestão academica do Instituto Politécnico Industrial de Luanda, capaz de gerenciar informações e processos educacionais, melhorando a eficiência operacional e a qualidade do ensino .',
     stack: ['React', 'TypeScript', 'Fastify', 'Prisma'],
-  },
-  {
-    slug: 'plataforma-hospitalar',
-    icon: Stethoscope,
-    tag: 'Saúde',
-    title: 'Plataforma Hospitalar',
-    description:
-      'Sistema de consulta e triagem com chat clínico em tempo real via WebSocket, autenticação segura e sincronização de sessão entre paciente e profissional de saúde.',
-    stack: ['React', 'TypeScript', 'Fastify', 'Prisma', 'MySQL'],
   },
   {
     slug: 'acesso-etp',
     icon: Landmark,
     tag: 'Serviço Público',
     title: 'Acesso ETP',
+    liveUrl: 'https://acessoetp.ao/?fbclid=IwcGRvZgRleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8yNzUyNTQ2OTI1OTgyNzkAAR6zilqmYm5C5avqnV2c7fpJf72mkHBSUBZpbVzuoGF0FKDK6R-4qvrCh9vDew_aem_ifmM5GDAj9HQ_H6r8qQVwg',
     description:
-      'Plataforma governamental de admissão ao Ensino Técnico-Profissional. Redesenho da página de consulta de resultados com foco em clareza, confiança institucional e forte responsividade móvel.',
+      'Plataforma governamental de admissão ao Ensino Técnico-Profissional. Redesenho da página de consulta de resultados com foco em clareza, confiança institucional e forte responsividade móvel e desktop.',
     stack: ['Laravel', 'Blade/React', 'MySQL'],
   },
 ]
