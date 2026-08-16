@@ -20,7 +20,7 @@ const contactMethods = [
     label: 'Telefone',
     value: profile.phone,
     href: profile.phoneHref,
-    description: 'Disponível das 9h às 18h',
+    description: 'Disponível para chamadas e mensagens',
     color: '#34A853'
   },
   {
@@ -62,7 +62,7 @@ const faqs = [
   },
   {
     question: 'Como são feitos os pagamentos?',
-    answer: 'Trabalho com um modelo flexível de pagamento, geralmente dividido em etapas: início, marcos de desenvolvimento e entrega final. Aceito transferência bancária e PayPal.'
+    answer: 'Trabalho com um modelo flexível de pagamento, geralmente dividido em etapas: início, marcos de desenvolvimento e entrega final.'
   }
 ]
 
@@ -71,9 +71,6 @@ function Contact() {
 
   const [activeFaq, setActiveFaq] = useState<number | null>(null)
   const formRef = useRef<HTMLFormElement>(null)
-
-
-
 
 
   // Scroll para o formulário
