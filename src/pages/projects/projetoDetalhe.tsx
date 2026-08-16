@@ -2,28 +2,21 @@ import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import {
   ArrowLeft,
-  Calendar,
   Star,
   GitFork,
   ExternalLink,
   ChevronLeft,
   ChevronRight,
-  CheckCircle,
-  Target,
   Code2,
   Layers,
-  Zap,
-  Shield,
   Rocket,
   Share2,
   Bookmark,
   BookmarkCheck,
   Eye,
-  Heart,
   MessageCircle,
   Grid3x3,
 } from 'lucide-react'
-import { FaGithub } from 'react-icons/fa'
 import Reveal from '@/components/common/Reveal'
 import { projects } from '@/data/projects'
 import { getProjectImageUrl } from '@/utils/projectImage'
@@ -62,8 +55,6 @@ const FALLBACK_IMAGE = '/images/projects/placeholder.jpg'
 function ProjetoDetalhe() {
   const { slug } = useParams()
   const [isBookmarked, setIsBookmarked] = useState(false)
-  const [isLiked, setIsLiked] = useState(false)
-  const [likes, setLikes] = useState(42)
   const [currentImage, setCurrentImage] = useState(0)
   const [isZoomed, setIsZoomed] = useState(false)
 
@@ -122,15 +113,6 @@ function ProjetoDetalhe() {
   // capa aparece sozinha — sem precisar subir imagem nenhuma.
   const autoImage = getProjectImageUrl(project)
   const projectImages = autoImage ? [autoImage] : [FALLBACK_IMAGE]
-
-  const handleLike = () => {
-    if (isLiked) {
-      setLikes(likes - 1)
-    } else {
-      setLikes(likes + 1)
-    }
-    setIsLiked(!isLiked)
-  }
 
   const handleImageError = (
     event: React.SyntheticEvent<HTMLImageElement>
@@ -235,15 +217,6 @@ function ProjetoDetalhe() {
                 </div>
               )}
 
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Calendar className="w-4 h-4" />
-                <span>
-                  Lançado em{' '}
-                  {project.date
-                    ? new Date(project.date).toLocaleDateString('pt-BR')
-                    : 'Data não disponível'}
-                </span>
-              </div>
 
               {project.views !== undefined && (
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -257,17 +230,6 @@ function ProjetoDetalhe() {
           {/* Ações */}
           <Reveal delay={200}>
             <div className="flex flex-wrap gap-3">
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-secondary"
-                >
-                  <FaGithub size={18} />
-                  Ver Código
-                </a>
-              )}
               {project.liveUrl && (
                 <a
                   href={project.liveUrl}
@@ -276,21 +238,10 @@ function ProjetoDetalhe() {
                   className="btn-primary"
                 >
                   <ExternalLink size={18} />
-                  Ver Demonstração
+                  Ver Projeto
                   <Rocket className="w-4 h-4" />
                 </a>
               )}
-              <button
-                onClick={handleLike}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg border border-border hover:border-primary/30 transition-all duration-300 hover:bg-primary/5"
-              >
-                <Heart
-                  className={`w-4 h-4 ${
-                    isLiked ? 'fill-red-500 text-red-500' : 'text-muted-foreground'
-                  }`}
-                />
-                <span className="text-sm">{likes}</span>
-              </button>
             </div>
           </Reveal>
         </div>
@@ -385,92 +336,6 @@ function ProjetoDetalhe() {
                     >
                       {tech}
                     </span>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-
-            {/* Funcionalidades */}
-            <Reveal delay={100}>
-              <div>
-                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                  <Zap className="w-5 h-5 text-primary" />
-                  Funcionalidades Principais
-                </h2>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {projectData.features.map((feature, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start gap-3 p-3 rounded-xl bg-card/30 border border-border/50 hover:border-primary/30 transition-all duration-300"
-                    >
-                      <CheckCircle className="w-5 h-5 text-primary/70 mt-0.5 shrink-0" />
-                      <span className="text-sm text-muted-foreground">
-                        {feature}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-
-            {/* Desafios e Soluções */}
-            <Reveal delay={150}>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl bg-card/30 border border-border/50">
-                  <h3 className="font-semibold mb-3 flex items-center gap-2">
-                    <Target className="w-4 h-4 text-primary" />
-                    Desafios
-                  </h3>
-                  <ul className="space-y-2">
-                    {projectData.challenges.map((challenge, index) => (
-                      <li
-                        key={index}
-                        className="flex items-start gap-2 text-sm text-muted-foreground"
-                      >
-                        <span className="text-primary mt-0.5">•</span>
-                        {challenge}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="p-4 rounded-xl bg-card/30 border border-border/50">
-                  <h3 className="font-semibold mb-3 flex items-center gap-2">
-                    <Shield className="w-4 h-4 text-primary" />
-                    Soluções
-                  </h3>
-                  <ul className="space-y-2">
-                    {projectData.solutions.map((solution, index) => (
-                      <li
-                        key={index}
-                        className="flex items-start gap-2 text-sm text-muted-foreground"
-                      >
-                        <span className="text-primary mt-0.5">•</span>
-                        {solution}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </Reveal>
-
-            {/* Resultados */}
-            <Reveal delay={200}>
-              <div className="p-6 rounded-xl bg-linear-to-br from-primary/5 to-primary/10 border border-primary/20">
-                <h3 className="font-semibold mb-4 flex items-center gap-2 text-lg">
-                  <Rocket className="w-5 h-5 text-primary" />
-                  Resultados e Impacto
-                </h3>
-                <div className="grid sm:grid-cols-3 gap-4">
-                  {projectData.results.map((result, index) => (
-                    <div
-                      key={index}
-                      className="text-center p-3 rounded-lg bg-background/50"
-                    >
-                      <div className="text-2xl font-bold text-primary mb-1">
-                        {index === 0 ? '40%' : index === 1 ? '60%' : '5k+'}
-                      </div>
-                      <p className="text-xs text-muted-foreground">{result}</p>
-                    </div>
                   ))}
                 </div>
               </div>
