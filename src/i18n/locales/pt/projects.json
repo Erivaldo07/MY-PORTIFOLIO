@@ -1,0 +1,17 @@
+{
+  "sipe": {
+    "title": "SIPE",
+    "tag": "Gestão Educacional",
+    "description": "Sistema Integrado Provincial da Educação, desenvolvido para otimizar a gestão educacional a nivel provincial, permitindo o gerenciamento eficiente de informações e processos educacionais e promoção da qualidade do ensino."
+  },
+  "Portal do Ipil": {
+    "title": "Plataforma de gestão academica",
+    "tag": "Gestão Acadêmica",
+    "description": "Plataforma de gestão academica do Instituto Politécnico Industrial de Luanda, capaz de gerenciar informações e processos educacionais, melhorando a eficiência operacional e a qualidade do ensino ."
+  },
+  "acesso-etp": {
+    "title": "Acesso ETP",
+    "tag": "Serviço Público",
+    "description": "Plataforma governamental de admissão ao Ensino Técnico-Profissional. Redesenho da página de consulta de resultados com foco em clareza, confiança institucional e forte responsividade móvel e desktop."
+  }
+}

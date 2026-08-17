@@ -1,0 +1,121 @@
+{
+  "nav": {
+    "home": "Início",
+    "projects": "Projetos",
+    "about": "Sobre",
+    "journey": "Trajetória",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "available": "Disponível para projetos",
+    "role": "Full Stack Developer",
+    "ctaContact": "Vamos Conversar",
+    "ctaProjects": "Ver Projetos",
+    "ctaResume": "Currículo",
+    "connect": "Conecte-se:"
+  },
+  "stats": {
+    "projectsDelivered": "Projetos Entregues",
+    "happyClients": "Clientes Satisfeitos",
+    "yearsExperience": "Anos de Experiência",
+    "technologies": "Tecnologias"
+  },
+  "skills": {
+    "badge": "Especialidades",
+    "titlePrefix": "Tecnologias que",
+    "titleHighlight": "domino",
+    "subtitle": "Stack moderna para criar aplicações escaláveis e de alta performance"
+  },
+  "architecture": {
+    "badge": "Arquitetura",
+    "titlePrefix": "Como",
+    "titleHighlight": "construo",
+    "titleSuffix": "soluções"
+  },
+  "experience": {
+    "badge": "Experiência",
+    "titlePrefix": "Trajetória",
+    "titleHighlight": "profissional"
+  },
+  "cta": {
+    "titlePrefix": "Vamos construir algo",
+    "titleHighlight": "incrível",
+    "titleSuffix": "juntos?",
+    "description": "Estou sempre aberto a novos desafios e oportunidades. Entre em contacto e vamos conversar!",
+    "button": "Iniciar Conversa"
+  },
+  "projectsPage": {
+    "badge": "Portfólio",
+    "projectsCount": "{{count}} projeto",
+    "projectsCount_plural": "{{count}} projetos",
+    "titlePrefix": "Onde o código encontra o",
+    "titleHighlight": "utilizador real",
+    "description": "Uma coleção de projetos que resolvem problemas reais, desde aplicações web escaláveis até soluções inovadoras com diferentes tecnologias.",
+    "statProjects": "projetos",
+    "statCategories": "categorias",
+    "statTechnologies": "tecnologias",
+    "searchPlaceholder": "Buscar projetos...",
+    "filters": "Filtros",
+    "sort": {
+      "newest": "Mais Recentes",
+      "oldest": "Mais Antigos",
+      "alphabetical": "A-Z",
+      "popular": "Mais Populares"
+    },
+    "categories": {
+      "all": "Todos",
+      "web": "Web Apps",
+      "mobile": "Mobile",
+      "enterprise": "Enterprise",
+      "openSource": "Open Source"
+    },
+    "resultsFound": "{{count}} projeto encontrado",
+    "resultsFound_plural": "{{count}} projetos encontrados",
+    "noneFound": "Nenhum projeto encontrado",
+    "emptyTitle": "Nenhum projeto encontrado",
+    "emptyDescription": "Tente ajustar os filtros ou realizar uma nova busca.",
+    "clearFilters": "Limpar filtros",
+    "ctaTitle": "Tem um projeto em mente?",
+    "ctaDescription": "Vamos transformar a sua ideia em realidade. Entre em contacto e vamos construir algo incrível juntos.",
+    "ctaButton": "Vamos Conversar"
+  },
+  "projectDetail": {
+    "back": "Voltar aos projetos",
+    "notFoundTitle": "Projeto não encontrado",
+    "notFoundDescription": "O projeto que você procura não existe ou foi removido.",
+    "featured": "Destaque",
+    "stars": "stars",
+    "forks": "forks",
+    "releasedOn": "Lançado em",
+    "noDate": "Data não disponível",
+    "views": "visualizações",
+    "viewCode": "Ver Código",
+    "viewDemo": "Ver Demonstração",
+    "gallery": "Galeria do Projeto",
+    "stack": "Stack Tecnológica",
+    "features": "Funcionalidades Principais",
+    "challenges": "Desafios",
+    "solutions": "Soluções",
+    "results": "Resultados e Impacto",
+    "infoTitle": "Informações do Projeto",
+    "infoStatus": "Status",
+    "infoStatusValue": "Produção",
+    "infoClient": "Cliente",
+    "infoClientValue": "Setor Público / Privado",
+    "infoType": "Tipo",
+    "infoCategory": "Categoria",
+    "keyTech": "Tecnologias Chave",
+    "ctaTitle": "Gostou do projeto?",
+    "ctaDescription": "Entre em contato para saber como posso ajudar no seu próximo projeto.",
+    "ctaButton": "Vamos Conversar",
+    "prevProject": "Projeto Anterior",
+    "nextProject": "Próximo Projeto"
+  },
+  "footer": {
+    "rights": "Todos os direitos reservados."
+  },
+  "language": {
+    "pt": "Português",
+    "en": "English"
+  }
+}
