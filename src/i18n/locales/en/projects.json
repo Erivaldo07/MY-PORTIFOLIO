@@ -1,0 +1,17 @@
+{
+  "sipe": {
+    "title": "SIPE",
+    "tag": "Educational Management",
+    "description": "Integrated Provincial Education System, built to streamline education management at the provincial level, enabling efficient handling of educational information and processes while promoting teaching quality."
+  },
+  "Portal do Ipil": {
+    "title": "Academic Management Platform",
+    "tag": "Academic Management",
+    "description": "Academic management platform for the Luanda Industrial Polytechnic Institute, capable of managing educational information and processes, improving operational efficiency and teaching quality."
+  },
+  "acesso-etp": {
+    "title": "Acesso ETP",
+    "tag": "Public Service",
+    "description": "Government platform for admission to Technical-Professional Education. Redesigned the results lookup page with a focus on clarity, institutional trust, and strong responsiveness across mobile and desktop."
+  }
+}

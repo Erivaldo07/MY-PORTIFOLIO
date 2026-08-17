@@ -1,0 +1,121 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "about": "About",
+    "journey": "Journey",
+    "contact": "Contact"
+  },
+  "hero": {
+    "available": "Available for projects",
+    "role": "Full Stack Developer",
+    "ctaContact": "Let's Talk",
+    "ctaProjects": "View Projects",
+    "ctaResume": "Resume",
+    "connect": "Connect:"
+  },
+  "stats": {
+    "projectsDelivered": "Projects Delivered",
+    "happyClients": "Happy Clients",
+    "yearsExperience": "Years of Experience",
+    "technologies": "Technologies"
+  },
+  "skills": {
+    "badge": "Expertise",
+    "titlePrefix": "Technologies I",
+    "titleHighlight": "master",
+    "subtitle": "Modern stack for building scalable, high-performance applications"
+  },
+  "architecture": {
+    "badge": "Architecture",
+    "titlePrefix": "How I",
+    "titleHighlight": "build",
+    "titleSuffix": "solutions"
+  },
+  "experience": {
+    "badge": "Experience",
+    "titlePrefix": "Professional",
+    "titleHighlight": "journey"
+  },
+  "cta": {
+    "titlePrefix": "Let's build something",
+    "titleHighlight": "amazing",
+    "titleSuffix": "together?",
+    "description": "I'm always open to new challenges and opportunities. Get in touch and let's talk!",
+    "button": "Start a Conversation"
+  },
+  "projectsPage": {
+    "badge": "Portfolio",
+    "projectsCount": "{{count}} project",
+    "projectsCount_plural": "{{count}} projects",
+    "titlePrefix": "Where code meets the",
+    "titleHighlight": "real user",
+    "description": "A collection of projects that solve real problems, from scalable web applications to innovative solutions with different technologies.",
+    "statProjects": "projects",
+    "statCategories": "categories",
+    "statTechnologies": "technologies",
+    "searchPlaceholder": "Search projects...",
+    "filters": "Filters",
+    "sort": {
+      "newest": "Newest",
+      "oldest": "Oldest",
+      "alphabetical": "A-Z",
+      "popular": "Most Popular"
+    },
+    "categories": {
+      "all": "All",
+      "web": "Web Apps",
+      "mobile": "Mobile",
+      "enterprise": "Enterprise",
+      "openSource": "Open Source"
+    },
+    "resultsFound": "{{count}} project found",
+    "resultsFound_plural": "{{count}} projects found",
+    "noneFound": "No projects found",
+    "emptyTitle": "No projects found",
+    "emptyDescription": "Try adjusting the filters or searching again.",
+    "clearFilters": "Clear filters",
+    "ctaTitle": "Have a project in mind?",
+    "ctaDescription": "Let's turn your idea into reality. Get in touch and let's build something amazing together.",
+    "ctaButton": "Let's Talk"
+  },
+  "projectDetail": {
+    "back": "Back to projects",
+    "notFoundTitle": "Project not found",
+    "notFoundDescription": "The project you're looking for doesn't exist or was removed.",
+    "featured": "Featured",
+    "stars": "stars",
+    "forks": "forks",
+    "releasedOn": "Released on",
+    "noDate": "Date not available",
+    "views": "views",
+    "viewCode": "View Code",
+    "viewDemo": "View Demo",
+    "gallery": "Project Gallery",
+    "stack": "Tech Stack",
+    "features": "Key Features",
+    "challenges": "Challenges",
+    "solutions": "Solutions",
+    "results": "Results & Impact",
+    "infoTitle": "Project Info",
+    "infoStatus": "Status",
+    "infoStatusValue": "Production",
+    "infoClient": "Client",
+    "infoClientValue": "Public / Private Sector",
+    "infoType": "Type",
+    "infoCategory": "Category",
+    "keyTech": "Key Technologies",
+    "ctaTitle": "Liked this project?",
+    "ctaDescription": "Get in touch to see how I can help with your next project.",
+    "ctaButton": "Let's Talk",
+    "prevProject": "Previous Project",
+    "nextProject": "Next Project"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "language": {
+    "pt": "Português",
+    "en": "English"
+  }
+}

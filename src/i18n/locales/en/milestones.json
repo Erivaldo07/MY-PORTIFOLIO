@@ -1,0 +1,18 @@
+{
+  "0": {
+    "title": "Real-time communication",
+    "text": "I built WebSocket-based chat systems for two very different platforms — healthcare and tourism — including disconnect handling and session synchronization."
+  },
+  "1": {
+    "title": "Applied geolocation",
+    "text": "I built voice-guided, turn-by-turn navigation using OpenStreetMap and Leaflet to guide tourists to points of interest across Angola."
+  },
+  "2": {
+    "title": "AI applied to product",
+    "text": "I integrated the Google Gemini API to build \"Kamba,\" a tourism guide chatbot, after evaluating alternatives like Groq and Cohere."
+  },
+  "3": {
+    "title": "Software for the public sector",
+    "text": "I developed and redesigned interfaces for government platforms, focused on visual trust and accessibility for everyday citizens."
+  }
+}
