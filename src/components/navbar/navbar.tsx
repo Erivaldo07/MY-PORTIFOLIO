@@ -6,7 +6,7 @@ import { motion, AnimatePresence, type Variants } from 'framer-motion'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 
 const links = [
-  { to: '/', label: 'Home', icon: Home },
+  { to: '/', label: 'Inicio', icon: Home },
   { to: '/sobre', label: 'Sobre', icon: User },
   { to: '/projetos', label: 'Projetos', icon: FolderGit2 },
   { to: '/contacto', label: 'Contacto', icon: Mail },

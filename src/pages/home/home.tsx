@@ -261,7 +261,7 @@ function Home() {
 
                   {/* Projects */}
                   <a
-                    href="#projetos"
+                    href="/projetos"
                     className="btn-secondary"
                   >
                     <Code2 size={18} />
