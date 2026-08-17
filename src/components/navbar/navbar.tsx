@@ -4,6 +4,7 @@ import ThemeToggle from '@/components/common/ThemeToggle'
 import { useState, useEffect} from 'react'
 import { motion, AnimatePresence, type Variants } from 'framer-motion'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
+import LanguageSwitcher from "@/components/language/LanguageSwitcher"
 
 const links = [
   { to: '/', label: 'Inicio', icon: Home },
@@ -171,6 +172,7 @@ function Navbar() {
 
               <div className="flex items-center gap-2">
                 <ThemeToggle />
+                <LanguageSwitcher />
 
                 {/* Social links desktop */}
                 <div className="flex items-center gap-1 ml-2 pl-2 border-l border-border/50">
@@ -182,7 +184,7 @@ function Navbar() {
                       rel="noopener noreferrer"
                       className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-300"
                       aria-label={social.label}
-                    >
+                      >
                       <social.icon className="w-4 h-4" />
                     </a>
                   ))}
@@ -193,6 +195,7 @@ function Navbar() {
             {/* Mobile Controls */}
             <div className="flex md:hidden items-center gap-2">
               <ThemeToggle />
+              <LanguageSwitcher />
 
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -218,7 +221,7 @@ function Navbar() {
                       animate={{ rotate: 0, opacity: 1 }}
                       exit={{ rotate: -90, opacity: 0 }}
                       transition={{ duration: 0.2 }}
-                    >
+                      >
                       <Menu className="w-6 h-6" />
                     </motion.div>
                   )}
