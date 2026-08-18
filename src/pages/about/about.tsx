@@ -19,6 +19,7 @@ import {
   ArrowRight,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import skillsGroups from "@/hooks/useTranslatedSkillGroups"
 
 // ============================================================
 // TYPES
@@ -182,6 +183,8 @@ const achievements = [
   'Implementação de autenticação e autorização',
   'Integração com serviços externos',
 ]
+
+const skillGroupsTranslated = skillsGroups()
 
 // ============================================================
 // ABOUT PAGE

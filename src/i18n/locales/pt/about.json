@@ -1,0 +1,88 @@
+{
+  "badge": "Sobre mim",
+  "heroTitleLine1": "Mais do que código,",
+  "heroTitleHighlight": "construo soluções.",
+  "heroDescription": "Sou desenvolvedor Full Stack apaixonado por tecnologia, resolução de problemas e criação de experiências digitais que realmente fazem a diferença.",
+  "visualRole": "Full Stack Developer",
+  "visualSubtitle": "Criando soluções digitais",
+  "badgeCreativity": "Criatividade",
+  "badgePassion": "Paixão por tecnologia",
+  "journeyStats": {
+    "0": { "label": "Projetos Entregues" },
+    "1": { "label": "Setores Atendidos" },
+    "2": { "label": "Tecnologias" }
+  },
+  "story": {
+    "badge": "Minha história",
+    "titlePrefix": "Uma jornada de",
+    "titleHighlight": "aprendizado",
+    "paragraphs": [
+      "Minha jornada na programação começou com a curiosidade de entender como as aplicações que usamos diariamente realmente funcionam.",
+      "Com o tempo, essa curiosidade transformou-se em paixão. Passei a estudar diferentes tecnologias, construir projetos e procurar constantemente formas melhores de resolver problemas.",
+      "Hoje trabalho principalmente com desenvolvimento Full Stack, buscando unir uma boa experiência de utilizador com código organizado, seguro e escalável."
+    ]
+  },
+  "goal": {
+    "title": "O meu objetivo",
+    "subtitle": "Crescer enquanto desenvolvedor",
+    "description": "Quero continuar evoluindo tecnicamente, trabalhar em projetos desafiadores e contribuir para produtos que tenham impacto real."
+  },
+  "achievements": [
+    "Desenvolvimento de aplicações web completas",
+    "Criação de APIs REST e sistemas backend",
+    "Integração de bancos de dados relacionais",
+    "Desenvolvimento de interfaces responsivas",
+    "Implementação de autenticação e autorização",
+    "Integração com serviços externos"
+  ],
+  "values": {
+    "badge": "Princípios",
+    "titlePrefix": "O que guia o meu",
+    "titleHighlight": "trabalho",
+    "description": "Mais do que tecnologias, acredito que bons resultados dependem dos princípios utilizados durante todo o processo.",
+    "items": {
+      "0": {
+        "title": "Aprendizado Contínuo",
+        "description": "Acredito que um bom desenvolvedor nunca para de aprender. Busco constantemente novas tecnologias, boas práticas e formas melhores de resolver problemas."
+      },
+      "1": {
+        "title": "Qualidade",
+        "description": "Não quero apenas fazer funcionar. Procuro construir soluções organizadas, escaláveis, acessíveis e fáceis de manter."
+      },
+      "2": {
+        "title": "Inovação",
+        "description": "Gosto de transformar ideias em experiências digitais modernas, explorando novas tecnologias para criar soluções que realmente façam diferença."
+      },
+      "3": {
+        "title": "Colaboração",
+        "description": "Acredito que os melhores produtos são construídos quando diferentes ideias e experiências trabalham juntas."
+      }
+    }
+  },
+  "tech": {
+    "badge": "Especialidades",
+    "titlePrefix": "Onde concentro a minha",
+    "titleHighlight": "energia",
+    "items": {
+      "0": { "name": "Frontend", "description": "Interfaces modernas, responsivas e acessíveis." },
+      "1": { "name": "Backend", "description": "APIs robustas, seguras e escaláveis." },
+      "2": { "name": "Full Stack", "description": "Integração completa entre frontend e backend." },
+      "3": { "name": "Arquitetura", "description": "Estruturas organizadas e preparadas para crescimento." }
+    }
+  },
+  "skills": {
+    "badge": "Stack",
+    "titlePrefix": "Tecnologias que fazem parte da minha",
+    "titleHighlight": "jornada",
+    "cardSubtitle": "Tecnologias e ferramentas"
+  },
+  "location": {
+    "label": "Localização",
+    "value": "Angola",
+    "titlePrefix": "Aberto a novas",
+    "titleHighlight": "oportunidades",
+    "description": "Estou disponível para projetos freelance, oportunidades profissionais e colaborações interessantes, tanto remotamente como presencialmente.",
+    "availableTitle": "Disponível para projetos",
+    "availableSubtitle": "Entre em contacto comigo"
+  }
+}
