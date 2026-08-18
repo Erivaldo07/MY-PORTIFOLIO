@@ -116,10 +116,37 @@
     "shareLabel": "Share"
   },
   "footer": {
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "craftedWith": "crafted with care",
+    "backToTop": "Back to top",
+    "detailed": {
+      "aboutTitle": "About",
+      "aboutDescription": "Full Stack developer passionate about building innovative solutions and exceptional digital experiences.",
+      "linksTitle": "Links",
+      "quickLinks": {
+        "projects": "Projects",
+        "about": "About",
+        "experience": "Experience",
+        "contact": "Contact"
+      },
+      "contactTitle": "Contact",
+      "availableForProjects": "Available for projects",
+      "socialTitle": "Social Media",
+      "ctaText": "Let's build something amazing together!",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfUse": "Terms of Use"
+    },
+    "standard": {
+      "builtWith": "Built with"
+    }
   },
   "language": {
     "pt": "Português",
     "en": "English"
+  },
+  "navbar": {
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   }
 }

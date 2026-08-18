@@ -1,9 +1,9 @@
 import { Mail, Heart, Sparkles, Code, Briefcase, MapPin, ArrowUp, type LucideIcon } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence, type Variants } from 'framer-motion'
-import { FaGithub, FaLinkedin} from 'react-icons/fa'
+import { useTranslation } from 'react-i18next'
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import type { IconType } from 'react-icons'
-
 
 type SocialIcon = IconType | LucideIcon
 
@@ -37,16 +37,22 @@ const socialLinks: SocialLink[] = [
   },
 ]
 
+// Links rápidos do rodapé (âncoras da página, não rotas). O `anchor`
+// é estrutural e nunca muda; o `key` busca o label em
+// footer.detailed.quickLinks.{key} no common.json.
+const quickLinksBase = [
+  { anchor: 'projetos', key: 'projects' },
+  { anchor: 'sobre', key: 'about' },
+  { anchor: 'experiencia', key: 'experience' },
+  { anchor: 'contato', key: 'contact' },
+]
+
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 10 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: {
-      delay: i * 0.08,
-      duration: 0.4,
-      ease: 'easeOut',
-    },
+    transition: { delay: i * 0.08, duration: 0.4, ease: 'easeOut' },
   }),
 }
 
@@ -57,6 +63,7 @@ function Footer({
   showContact = true,
   className = '',
 }: FooterProps) {
+  const { t } = useTranslation('common')
   const [showScrollTop, setShowScrollTop] = useState(false)
   const currentYear = new Date().getFullYear()
 
@@ -72,7 +79,6 @@ function Footer({
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  // Renderização por variante
   const renderFooter = () => {
     switch (variant) {
       case 'minimal':
@@ -90,7 +96,7 @@ function Footer({
                 <span className="text-primary/30">·</span>
                 <span className="flex items-center gap-1">
                   <Heart className="w-3 h-3 text-red-500/70 animate-pulse" />
-                  <span className="text-xs">crafted with care</span>
+                  <span className="text-xs">{t('footer.craftedWith')}</span>
                 </span>
               </p>
             </div>
@@ -99,12 +105,7 @@ function Footer({
 
       case 'detailed':
         return (
-          <footer
-            className={`
-              border-t border-border/50 bg-card/60 backdrop-blur-md
-              ${className}
-            `}
-          >
+          <footer className={`border-t border-border/50 bg-card/60 backdrop-blur-md ${className}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                 {/* Coluna 1 - Sobre */}
@@ -115,10 +116,11 @@ function Footer({
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.2 }}
                 >
-                  <h3 className="text-sm font-semibold text-foreground mb-3">Sobre</h3>
+                  <h3 className="text-sm font-semibold text-foreground mb-3">
+                    {t('footer.detailed.aboutTitle')}
+                  </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Desenvolvedor Full Stack apaixonado por criar soluções inovadoras e experiências digitais
-                    excepcionais.
+                    {t('footer.detailed.aboutDescription')}
                   </p>
                   <div className="flex items-center gap-2 mt-3">
                     <Code className="w-4 h-4 text-primary/60" />
@@ -134,16 +136,18 @@ function Footer({
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.2 }}
                 >
-                  <h3 className="text-sm font-semibold text-foreground mb-3">Links</h3>
+                  <h3 className="text-sm font-semibold text-foreground mb-3">
+                    {t('footer.detailed.linksTitle')}
+                  </h3>
                   <ul className="space-y-2">
-                    {['Projetos', 'Sobre', 'Experiência', 'Contato'].map(item => (
-                      <li key={item}>
+                    {quickLinksBase.map((link) => (
+                      <li key={link.anchor}>
                         <a
-                          href={`#${item.toLowerCase()}`}
+                          href={`#${link.anchor}`}
                           className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center gap-2 group"
                         >
                           <span className="w-1 h-1 rounded-full bg-primary/30 group-hover:bg-primary transition-colors" />
-                          {item}
+                          {t(`footer.detailed.quickLinks.${link.key}`)}
                         </a>
                       </li>
                     ))}
@@ -159,7 +163,9 @@ function Footer({
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.2 }}
                   >
-                    <h3 className="text-sm font-semibold text-foreground mb-3">Contato</h3>
+                    <h3 className="text-sm font-semibold text-foreground mb-3">
+                      {t('footer.detailed.contactTitle')}
+                    </h3>
                     <ul className="space-y-2">
                       <li className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Mail className="w-3.5 h-3.5 text-primary/60" />
@@ -173,7 +179,7 @@ function Footer({
                       </li>
                       <li className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Briefcase className="w-3.5 h-3.5 text-primary/60" />
-                        <span>Disponível para projetos</span>
+                        <span>{t('footer.detailed.availableForProjects')}</span>
                       </li>
                     </ul>
                   </motion.div>
@@ -188,9 +194,11 @@ function Footer({
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.2 }}
                   >
-                    <h3 className="text-sm font-semibold text-foreground mb-3">Redes Sociais</h3>
+                    <h3 className="text-sm font-semibold text-foreground mb-3">
+                      {t('footer.detailed.socialTitle')}
+                    </h3>
                     <div className="flex flex-wrap gap-2">
-                      {socialLinks.slice(0, 6).map(social => (
+                      {socialLinks.slice(0, 6).map((social) => (
                         <a
                           key={social.name}
                           href={social.url}
@@ -210,7 +218,7 @@ function Footer({
                     <div className="mt-4 p-3 rounded-lg bg-linear-to-r from-primary/5 to-primary/10 border border-primary/10">
                       <p className="text-xs text-muted-foreground flex items-center gap-1">
                         <Sparkles className="w-3 h-3 text-primary" />
-                        <span>Vamos construir algo incrível juntos!</span>
+                        <span>{t('footer.detailed.ctaText')}</span>
                       </p>
                     </div>
                   </motion.div>
@@ -231,15 +239,15 @@ function Footer({
                   <span className="hidden sm:inline">·</span>
                   <span className="flex items-center gap-1">
                     <Heart className="w-3 h-3 text-red-500/70 animate-pulse" />
-                    <span>Todos os direitos reservados</span>
+                    <span>{t('footer.rights')}</span>
                   </span>
                 </div>
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
                   <a href="#" className="hover:text-primary transition-colors">
-                    Política de Privacidade
+                    {t('footer.detailed.privacyPolicy')}
                   </a>
                   <a href="#" className="hover:text-primary transition-colors">
-                    Termos de Uso
+                    {t('footer.detailed.termsOfUse')}
                   </a>
                 </div>
               </motion.div>
@@ -249,12 +257,7 @@ function Footer({
 
       default: // standard
         return (
-          <footer
-            className={`
-              border-t border-border/50 bg-card/30 backdrop-blur-sm
-              ${className}
-            `}
-          >
+          <footer className={`border-t border-border/50 bg-card/30 backdrop-blur-sm ${className}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 {/* Esquerda - Copyright */}
@@ -271,7 +274,7 @@ function Footer({
                   <span className="hidden sm:inline">·</span>
                   <span className="flex items-center gap-1">
                     <Code className="w-3.5 h-3.5 text-primary/60" />
-                    <span className="text-xs">Full Stack Developer</span>
+                    <span className="text-xs">{t('hero.role')}</span>
                   </span>
                 </motion.div>
 
@@ -285,7 +288,7 @@ function Footer({
                     viewport={{ once: true, amount: 0.2 }}
                     className="flex items-center gap-1.5"
                   >
-                    {socialLinks.slice(0, 4).map(social => (
+                    {socialLinks.slice(0, 4).map((social) => (
                       <a
                         key={social.name}
                         href={social.url}
@@ -312,7 +315,7 @@ function Footer({
                   viewport={{ once: true, amount: 0.2 }}
                   className="flex items-center gap-2 text-xs text-muted-foreground"
                 >
-                  <span>Construído com</span>
+                  <span>{t('footer.standard.builtWith')}</span>
                   <span className="flex items-center gap-1">
                     <img
                       src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
@@ -346,7 +349,6 @@ function Footer({
     <>
       {renderFooter()}
 
-      {/* Botão Voltar ao Topo */}
       {showBackToTop && (
         <AnimatePresence>
           {showScrollTop && (
@@ -357,7 +359,7 @@ function Footer({
               transition={{ duration: 0.3, ease: 'easeOut' }}
               onClick={scrollToTop}
               className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all duration-300 hover:scale-110 group"
-              aria-label="Voltar ao topo"
+              aria-label={t('footer.backToTop')}
             >
               <ArrowUp className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
               <span className="absolute inset-0 rounded-full bg-primary/20 animate-ping opacity-0 group-hover:opacity-100 transition-opacity" />
