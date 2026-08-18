@@ -143,7 +143,7 @@ function Home() {
                     {t('hero.ctaProjects')}
                   </a>
 
-                  <a href="/curriculo.pdf" download className="btn-secondary">
+                  <a href="/Erivaldo.pdf" download className="btn-secondary">
                     <Download size={18} />
                     {t('hero.ctaResume')}
                   </a>
