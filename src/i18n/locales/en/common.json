@@ -12,7 +12,8 @@
     "ctaContact": "Let's Talk",
     "ctaProjects": "View Projects",
     "ctaResume": "Resume",
-    "connect": "Connect:"
+    "connect": "Connect:",
+    "greeting": "Hi, I'm"
   },
   "stats": {
     "projectsDelivered": "Projects Delivered",
@@ -22,8 +23,8 @@
   },
   "skills": {
     "badge": "Expertise",
-    "titlePrefix": "Technologies I",
-    "titleHighlight": "master",
+    "titlePrefix": "Tech",
+    "titleHighlight": "Stack",
     "subtitle": "Modern stack for building scalable, high-performance applications"
   },
   "architecture": {
@@ -109,7 +110,10 @@
     "ctaDescription": "Get in touch to see how I can help with your next project.",
     "ctaButton": "Let's Talk",
     "prevProject": "Previous Project",
-    "nextProject": "Next Project"
+    "nextProject": "Next Project",
+    "viewProject": "View Project",
+    "bookmarkLabel": "Bookmark",
+    "shareLabel": "Share"
   },
   "footer": {
     "rights": "All rights reserved."

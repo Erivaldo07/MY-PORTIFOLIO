@@ -1,0 +1,88 @@
+{
+  "badge": "About me",
+  "heroTitleLine1": "More than code,",
+  "heroTitleHighlight": "I build solutions.",
+  "heroDescription": "I'm a Full Stack developer passionate about technology, problem-solving, and building digital experiences that genuinely make a difference.",
+  "visualRole": "Full Stack Developer",
+  "visualSubtitle": "Building digital solutions",
+  "badgeCreativity": "Creativity",
+  "badgePassion": "Passion for tech",
+  "journeyStats": {
+    "0": { "label": "Projects Delivered" },
+    "1": { "label": "Sectors Served" },
+    "2": { "label": "Technologies" }
+  },
+  "story": {
+    "badge": "My story",
+    "titlePrefix": "A journey of",
+    "titleHighlight": "learning",
+    "paragraphs": [
+      "My programming journey started with curiosity about how the applications we use every day actually work under the hood.",
+      "Over time, that curiosity turned into passion. I started studying different technologies, building projects, and constantly looking for better ways to solve problems.",
+      "Today I work mainly with Full Stack development, aiming to combine a good user experience with organized, secure, and scalable code."
+    ]
+  },
+  "goal": {
+    "title": "My goal",
+    "subtitle": "Growing as a developer",
+    "description": "I want to keep growing technically, work on challenging projects, and contribute to products that have real impact."
+  },
+  "achievements": [
+    "Building complete web applications",
+    "Creating REST APIs and backend systems",
+    "Integrating relational databases",
+    "Building responsive interfaces",
+    "Implementing authentication and authorization",
+    "Integrating with external services"
+  ],
+  "values": {
+    "badge": "Principles",
+    "titlePrefix": "What guides my",
+    "titleHighlight": "work",
+    "description": "More than technologies, I believe good results depend on the principles applied throughout the whole process.",
+    "items": {
+      "0": {
+        "title": "Continuous Learning",
+        "description": "I believe a good developer never stops learning. I'm constantly looking for new technologies, best practices, and better ways to solve problems."
+      },
+      "1": {
+        "title": "Quality",
+        "description": "I don't just want things to work. I aim to build solutions that are organized, scalable, accessible, and easy to maintain."
+      },
+      "2": {
+        "title": "Innovation",
+        "description": "I enjoy turning ideas into modern digital experiences, exploring new technologies to build solutions that genuinely make a difference."
+      },
+      "3": {
+        "title": "Collaboration",
+        "description": "I believe the best products are built when different ideas and experiences work together."
+      }
+    }
+  },
+  "tech": {
+    "badge": "Expertise",
+    "titlePrefix": "Where I focus my",
+    "titleHighlight": "energy",
+    "items": {
+      "0": { "name": "Frontend", "description": "Modern, responsive, and accessible interfaces." },
+      "1": { "name": "Backend", "description": "Robust, secure, and scalable APIs." },
+      "2": { "name": "Full Stack", "description": "Seamless integration between frontend and backend." },
+      "3": { "name": "Architecture", "description": "Organized structures built to scale." }
+    }
+  },
+  "skills": {
+    "badge": "Stack",
+    "titlePrefix": "Technologies that are part of my",
+    "titleHighlight": "journey",
+    "cardSubtitle": "Technologies and tools"
+  },
+  "location": {
+    "label": "Location",
+    "value": "Angola",
+    "titlePrefix": "Open to new",
+    "titleHighlight": "opportunities",
+    "description": "I'm available for freelance projects, professional opportunities, and interesting collaborations, both remote and on-site.",
+    "availableTitle": "Available for projects",
+    "availableSubtitle": "Get in touch with me"
+  }
+}
