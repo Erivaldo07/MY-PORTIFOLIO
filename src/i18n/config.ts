@@ -12,15 +12,18 @@ import milestonesPT from './locales/pt/milestones.json'
 import milestonesEN from './locales/en/milestones.json'
 import skillsPT from './locales/pt/skills.json'
 import skillsEN from './locales/en/skills.json'
+import aboutPT from './locales/pt/about.json'
+import aboutEN from './locales/en/about.json'
+import homePT from './locales/pt/home.json'
+import homeEN from './locales/en/home.json'
+import contactPT from './locales/pt/contact.json'
+import contactEN from './locales/en/contact.json'
 
 // ============================================================
 // RECURSOS
 // ============================================================
-// Cada idioma tem vários "namespaces": common (interface),
-// projects (texto dos projetos), profile (bio), milestones
-// (marcos da página Trajetória) e skills (títulos dos grupos
-// de tecnologias). Isso evita um JSON gigante e deixa fácil
-// achar o que editar.
+// Um namespace por "área" do site — evita um JSON gigante e
+// deixa fácil achar o que editar.
 
 const resources = {
   pt: {
@@ -29,6 +32,9 @@ const resources = {
     profile: profilePT,
     milestones: milestonesPT,
     skills: skillsPT,
+    about: aboutPT,
+    home: homePT,
+    contact: contactPT,
   },
   en: {
     common: commonEN,
@@ -36,18 +42,21 @@ const resources = {
     profile: profileEN,
     milestones: milestonesEN,
     skills: skillsEN,
+    about: aboutEN,
+    home: homeEN,
+    contact: contactEN,
   },
 } as const
 
 i18n
-  .use(LanguageDetector) // detecta idioma do navegador/localStorage automaticamente
+  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,
     fallbackLng: 'pt',
     supportedLngs: ['pt', 'en'],
     defaultNS: 'common',
-    ns: ['common', 'projects', 'profile', 'milestones', 'skills'],
+    ns: ['common', 'projects', 'profile', 'milestones', 'skills', 'about', 'home', 'contact'],
 
     detection: {
       order: ['localStorage', 'navigator', 'htmlTag'],
@@ -56,7 +65,7 @@ i18n
     },
 
     interpolation: {
-      escapeValue: false, // React já escapa por padrão
+      escapeValue: false,
     },
   })
 

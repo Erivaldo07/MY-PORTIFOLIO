@@ -1,0 +1,46 @@
+{
+  "badge": "Contact",
+  "availability": "Immediate availability",
+  "heroTitlePrefix": "Let's create something",
+  "heroTitleHighlight": "amazing",
+  "heroTitleSuffix": "together?",
+  "heroDescription": "I'm always open to new opportunities, collaborations, and challenging projects. Get in touch and let's turn your ideas into reality.",
+  "sendMessage": "Send Message",
+  "metrics": {
+    "0": { "value": "15+", "label": "Projects delivered" },
+    "1": { "value": "10+", "label": "Happy clients" },
+    "2": { "value": "100%", "label": "Dedication" }
+  },
+  "methods": {
+    "0": { "label": "Email", "description": "I reply within 24h" },
+    "1": { "label": "Phone", "description": "Available for calls and messages" },
+    "2": { "label": "WhatsApp", "value": "Quick message", "description": "Instant reply" },
+    "3": { "label": "Location", "value": "Luanda, Angola", "description": "Available for meetings" }
+  },
+  "faqBadge": "FAQ",
+  "faqTitlePrefix": "Frequently asked",
+  "faqTitleHighlight": "questions",
+  "faqs": {
+    "0": {
+      "question": "How does the development process work?",
+      "answer": "The process starts with a conversation to understand your needs, followed by planning, design, development, testing, and deployment. I keep you updated at every step."
+    },
+    "1": {
+      "question": "How long does it take to build a project?",
+      "answer": "The timeline depends on complexity. Simple projects can take 2-4 weeks, while complex projects can take 2-6 months, depending on scope and requirements."
+    },
+    "2": {
+      "question": "Do you offer support after launch?",
+      "answer": "Yes! I offer ongoing support and maintenance to make sure your project keeps running smoothly after launch."
+    },
+    "3": {
+      "question": "How does payment work?",
+      "answer": "I work with a flexible payment model, usually split into stages: kickoff, development milestones, and final delivery."
+    }
+  },
+  "socialTitlePrefix": "Connect with me on",
+  "socialTitleHighlight": "social media",
+  "socialDescription": "Follow my projects, articles, and updates on social media.",
+  "availableNow": "Available for new projects",
+  "responseTime": "Reply within 24h"
+}

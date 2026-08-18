@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   ArrowLeft,
   Star,
@@ -20,52 +21,26 @@ import {
 import Reveal from '@/components/common/Reveal'
 import { projects } from '@/data/projects'
 import { getProjectImageUrl } from '@/utils/projectImage'
-
-// Dados de exemplo para demonstração - você pode adicionar no data/projects.ts
-const projectFeatures = {
-  'plataforma-turismo': {
-    overview:
-      'Uma plataforma inteligente que utiliza IA para recomendações personalizadas de viagens, integrando mapas interativos e dados em tempo real.',
-    challenges: [
-      'Integração de múltiplas APIs de turismo',
-      'Sistema de recomendação com IA',
-      'Performance com dados geoespaciais',
-    ],
-    solutions: [
-      'API Gateway para integrações',
-      'Modelo de IA treinado com dados reais',
-      'Cache e otimização de consultas',
-    ],
-    results: [
-      'Aumento de 40% na retenção de usuários',
-      'Redução de 60% no tempo de busca',
-      '5 mil usuários ativos',
-    ],
-    features: [
-      'Recomendações personalizadas com IA',
-      'Mapas interativos com pontos turísticos',
-      'Sistema de avaliações e comentários',
-      'Dashboard para gestores de turismo',
-    ],
-  },
-}
+import { useTranslatedProject } from '@/hooks/useTranslatedProjects'
 
 const FALLBACK_IMAGE = '/images/projects/placeholder.jpg'
 
 function ProjetoDetalhe() {
   const { slug } = useParams()
+  const { t } = useTranslation('common')
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [currentImage, setCurrentImage] = useState(0)
   const [isZoomed, setIsZoomed] = useState(false)
 
-  // Encontrar projeto atual e índices de navegação
+  // Índices de navegação vêm dos dados-base (ordem não muda com idioma)
   const currentIndex = projects.findIndex((p) => p.slug === slug)
-  const project = projects[currentIndex]
   const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null
   const nextProject =
     currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null
 
-  // Efeito de scroll ao topo
+  // Projeto atual, já com title/tag/description traduzidos
+  const { project } = useTranslatedProject(slug)
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [slug])
@@ -79,13 +54,15 @@ function ProjetoDetalhe() {
               <Code2 className="w-12 h-12 text-muted-foreground" />
             </div>
           </div>
-          <h2 className="text-2xl font-bold mb-2">Projeto não encontrado</h2>
+          <h2 className="text-2xl font-bold mb-2">
+            {t('projectDetail.notFoundTitle')}
+          </h2>
           <p className="text-muted-foreground mb-6">
-            O projeto que você procura não existe ou foi removido.
+            {t('projectDetail.notFoundDescription')}
           </p>
           <Link to="/projetos" className="btn-primary inline-flex">
             <ArrowLeft className="w-4 h-4" />
-            Voltar aos projetos
+            {t('projectDetail.back')}
           </Link>
         </div>
       </section>
@@ -93,24 +70,10 @@ function ProjetoDetalhe() {
   }
 
   const Icon = project.icon
-  const projectData = projectFeatures[
-    project.slug as keyof typeof projectFeatures
-  ] || {
-    overview: project.description,
-    challenges: ['Desafio 1', 'Desafio 2', 'Desafio 3'],
-    solutions: ['Solução 1', 'Solução 2', 'Solução 3'],
-    results: ['Resultado 1', 'Resultado 2', 'Resultado 3'],
-    features: ['Funcionalidade 1', 'Funcionalidade 2', 'Funcionalidade 3'],
-  }
 
   // --------------------------------------------------------
   // IMAGEM DO PROJETO
   // --------------------------------------------------------
-  // Prioridade: imagem manual (project.image) > screenshot automático
-  // do liveUrl (via Microlink) > placeholder local.
-  // Cada projeto resolve a sua própria imagem individualmente,
-  // então basta cadastrar o `liveUrl` no data/projects.ts que a
-  // capa aparece sozinha — sem precisar subir imagem nenhuma.
   const autoImage = getProjectImageUrl(project)
   const projectImages = autoImage ? [autoImage] : [FALLBACK_IMAGE]
 
@@ -131,14 +94,14 @@ function ProjetoDetalhe() {
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
           >
             <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-            Voltar aos projetos
+            {t('projectDetail.back')}
           </Link>
 
           <div className="flex items-center gap-2">
             <button
               onClick={() => setIsBookmarked(!isBookmarked)}
               className="p-2 rounded-lg hover:bg-muted/50 transition-colors text-muted-foreground hover:text-foreground"
-              aria-label="Favoritar"
+              aria-label={t('projectDetail.bookmarkLabel')}
             >
               {isBookmarked ? (
                 <BookmarkCheck className="w-4 h-4 text-primary" />
@@ -154,7 +117,7 @@ function ProjetoDetalhe() {
                 })
               }
               className="p-2 rounded-lg hover:bg-muted/50 transition-colors text-muted-foreground hover:text-foreground"
-              aria-label="Compartilhar"
+              aria-label={t('projectDetail.shareLabel')}
             >
               <Share2 className="w-4 h-4" />
             </button>
@@ -183,7 +146,7 @@ function ProjetoDetalhe() {
                   {project.featured && (
                     <span className="text-xs flex items-center gap-1 text-yellow-500">
                       <Star className="w-3 h-3 fill-current" />
-                      Destaque
+                      {t('projectDetail.featured')}
                     </span>
                   )}
                 </div>
@@ -196,7 +159,7 @@ function ProjetoDetalhe() {
 
           <Reveal delay={100}>
             <p className="text-base sm:text-lg text-muted-foreground max-w-3xl leading-relaxed mb-6">
-              {projectData.overview}
+              {project.description}
             </p>
           </Reveal>
 
@@ -206,22 +169,27 @@ function ProjetoDetalhe() {
               {project.stars !== undefined && (
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Star className="w-4 h-4 text-yellow-500" />
-                  <span>{project.stars} stars</span>
+                  <span>
+                    {project.stars} {t('projectDetail.stars')}
+                  </span>
                 </div>
               )}
 
               {project.forks !== undefined && (
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <GitFork className="w-4 h-4" />
-                  <span>{project.forks} forks</span>
+                  <span>
+                    {project.forks} {t('projectDetail.forks')}
+                  </span>
                 </div>
               )}
-
 
               {project.views !== undefined && (
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Eye className="w-4 h-4" />
-                  <span>{project.views} visualizações</span>
+                  <span>
+                    {project.views} {t('projectDetail.views')}
+                  </span>
                 </div>
               )}
             </div>
@@ -238,7 +206,7 @@ function ProjetoDetalhe() {
                   className="btn-primary"
                 >
                   <ExternalLink size={18} />
-                  Ver Projeto
+                  {t('projectDetail.viewProject')}
                   <Rocket className="w-4 h-4" />
                 </a>
               )}
@@ -254,7 +222,7 @@ function ProjetoDetalhe() {
             <Reveal>
               <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
                 <Layers className="w-5 h-5 text-primary" />
-                Galeria do Projeto
+                {t('projectDetail.gallery')}
               </h2>
             </Reveal>
 
@@ -262,13 +230,12 @@ function ProjetoDetalhe() {
               <div className="relative overflow-hidden rounded-2xl bg-muted/30 aspect-video">
                 <img
                   src={projectImages[currentImage]}
-                  alt={`${project.title} - Imagem ${currentImage + 1}`}
+                  alt={`${project.title} - ${currentImage + 1}`}
                   onError={handleImageError}
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105 cursor-pointer"
                   onClick={() => setIsZoomed(!isZoomed)}
                 />
 
-                {/* Controles da Galeria */}
                 {projectImages.length > 1 && (
                   <>
                     <button
@@ -294,7 +261,6 @@ function ProjetoDetalhe() {
                   </>
                 )}
 
-                {/* Indicadores */}
                 {projectImages.length > 1 && (
                   <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
                     {projectImages.map((_, index) => (
@@ -319,14 +285,12 @@ function ProjetoDetalhe() {
       {/* Conteúdo Principal */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Coluna Principal */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Stack Tecnológica */}
             <Reveal>
               <div>
                 <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
                   <Code2 className="w-5 h-5 text-primary" />
-                  Stack Tecnológica
+                  {t('projectDetail.stack')}
                 </h2>
                 <div className="flex flex-wrap gap-2">
                   {project.stack.map((tech) => (
@@ -344,30 +308,37 @@ function ProjetoDetalhe() {
 
           {/* Sidebar */}
           <div className="space-y-6">
-            {/* Info do Projeto */}
             <Reveal>
               <div className="p-6 rounded-xl bg-card/30 border border-border/50">
-                <h3 className="font-semibold mb-4">Informações do Projeto</h3>
+                <h3 className="font-semibold mb-4">{t('projectDetail.infoTitle')}</h3>
                 <div className="space-y-3">
                   <div>
-                    <p className="text-xs text-muted-foreground">Status</p>
+                    <p className="text-xs text-muted-foreground">
+                      {t('projectDetail.infoStatus')}
+                    </p>
                     <p className="text-sm font-medium flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                      Produção
+                      {t('projectDetail.infoStatusValue')}
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground">Cliente</p>
-                    <p className="text-sm font-medium">Setor Público / Privado</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">Tipo</p>
-                    <p className="text-sm font-medium capitalize">
-                      {project.tag}
+                    <p className="text-xs text-muted-foreground">
+                      {t('projectDetail.infoClient')}
+                    </p>
+                    <p className="text-sm font-medium">
+                      {t('projectDetail.infoClientValue')}
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground">Categoria</p>
+                    <p className="text-xs text-muted-foreground">
+                      {t('projectDetail.infoType')}
+                    </p>
+                    <p className="text-sm font-medium capitalize">{project.tag}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">
+                      {t('projectDetail.infoCategory')}
+                    </p>
                     <p className="text-sm font-medium capitalize">
                       {project.category || 'Web'}
                     </p>
@@ -376,10 +347,9 @@ function ProjetoDetalhe() {
               </div>
             </Reveal>
 
-            {/* Tecnologias em Destaque */}
             <Reveal delay={100}>
               <div className="p-6 rounded-xl bg-card/30 border border-border/50">
-                <h3 className="font-semibold mb-4">Tecnologias Chave</h3>
+                <h3 className="font-semibold mb-4">{t('projectDetail.keyTech')}</h3>
                 <div className="flex flex-wrap gap-2">
                   {project.stack.slice(0, 6).map((tech) => (
                     <span
@@ -393,20 +363,15 @@ function ProjetoDetalhe() {
               </div>
             </Reveal>
 
-            {/* CTA */}
             <Reveal delay={150}>
               <div className="p-6 rounded-xl bg-linear-to-br from-primary/10 to-primary/5 border border-primary/20">
-                <h3 className="font-semibold mb-2">Gostou do projeto?</h3>
+                <h3 className="font-semibold mb-2">{t('projectDetail.ctaTitle')}</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Entre em contato para saber como posso ajudar no seu próximo
-                  projeto.
+                  {t('projectDetail.ctaDescription')}
                 </p>
-                <Link
-                  to="/contacto"
-                  className="btn-primary w-full justify-center text-sm"
-                >
+                <Link to="/contacto" className="btn-primary w-full justify-center text-sm">
                   <MessageCircle className="w-4 h-4" />
-                  Vamos Conversar
+                  {t('projectDetail.ctaButton')}
                 </Link>
               </div>
             </Reveal>
@@ -427,7 +392,7 @@ function ProjetoDetalhe() {
                   <ChevronLeft className="w-5 h-5 text-muted-foreground group-hover:-translate-x-1 transition-transform" />
                   <div>
                     <p className="text-xs text-muted-foreground">
-                      Projeto Anterior
+                      {t('projectDetail.prevProject')}
                     </p>
                     <p className="text-sm font-medium group-hover:text-primary transition-colors">
                       {prevProject.title}
@@ -452,7 +417,7 @@ function ProjetoDetalhe() {
                 >
                   <div>
                     <p className="text-xs text-muted-foreground">
-                      Próximo Projeto
+                      {t('projectDetail.nextProject')}
                     </p>
                     <p className="text-sm font-medium group-hover:text-primary transition-colors">
                       {nextProject.title}

@@ -1,0 +1,29 @@
+{
+  "stats": {
+    "0": { "label": "Projects Delivered" },
+    "1": { "label": "Happy Clients" },
+    "2": { "label": "Years of Experience" },
+    "3": { "label": "Technologies" }
+  },
+  "experiences": {
+    "0": {
+      "title": "Full Stack Developer",
+      "description": "End-to-end development of web applications, from design through production deployment.",
+      "achievements": [
+        "Built tourism platforms",
+        "Implemented real-time systems with WebSocket",
+        "Performance and SEO optimization"
+      ]
+    },
+    "1": {
+      "title": "Frontend Developer",
+      "company": "Sosoft",
+      "description": "Development of modern, responsive interfaces with React and TypeScript.",
+      "achievements": [
+        "Contributed to building the Provincial Integrated Education System",
+        "Contributed to the Technical-Professional Education Access Platform",
+        "Contributed to the Academic Management Platform for the Luanda Industrial Polytechnic Institute"
+      ]
+    }
+  }
+}

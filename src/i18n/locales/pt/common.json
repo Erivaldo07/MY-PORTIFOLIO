@@ -12,7 +12,8 @@
     "ctaContact": "Vamos Conversar",
     "ctaProjects": "Ver Projetos",
     "ctaResume": "Currículo",
-    "connect": "Conecte-se:"
+    "connect": "Conecte-se:",
+    "greeting": "Olá, sou"
   },
   "stats": {
     "projectsDelivered": "Projetos Entregues",
@@ -22,8 +23,8 @@
   },
   "skills": {
     "badge": "Especialidades",
-    "titlePrefix": "Tecnologias que",
-    "titleHighlight": "domino",
+    "titlePrefix": "Stack de",
+    "titleHighlight": "Tecnologias",
     "subtitle": "Stack moderna para criar aplicações escaláveis e de alta performance"
   },
   "architecture": {
@@ -109,7 +110,10 @@
     "ctaDescription": "Entre em contato para saber como posso ajudar no seu próximo projeto.",
     "ctaButton": "Vamos Conversar",
     "prevProject": "Projeto Anterior",
-    "nextProject": "Próximo Projeto"
+    "nextProject": "Próximo Projeto",
+    "viewProject": "Ver Projeto",
+    "bookmarkLabel": "Favoritar",
+    "shareLabel": "Compartilhar"
   },
   "footer": {
     "rights": "Todos os direitos reservados."

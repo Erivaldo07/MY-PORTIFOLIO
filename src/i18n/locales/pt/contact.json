@@ -1,0 +1,46 @@
+{
+  "badge": "Contato",
+  "availability": "Disponibilidade Imediata",
+  "heroTitlePrefix": "Vamos criar algo",
+  "heroTitleHighlight": "incrível",
+  "heroTitleSuffix": "juntos?",
+  "heroDescription": "Estou sempre aberto a novas oportunidades, colaborações e projetos desafiadores. Entre em contato e vamos transformar suas ideias em realidade.",
+  "sendMessage": "Enviar Mensagem",
+  "metrics": {
+    "0": { "value": "15+", "label": "Projetos entregues" },
+    "1": { "value": "10+", "label": "Clientes satisfeitos" },
+    "2": { "value": "100%", "label": "Dedicação" }
+  },
+  "methods": {
+    "0": { "label": "Email", "description": "Respondo em até 24h" },
+    "1": { "label": "Telefone", "description": "Disponível para chamadas e mensagens" },
+    "2": { "label": "WhatsApp", "value": "Mensagem rápida", "description": "Resposta imediata" },
+    "3": { "label": "Localização", "value": "Luanda, Angola", "description": "Disponível para reuniões" }
+  },
+  "faqBadge": "FAQ",
+  "faqTitlePrefix": "Perguntas",
+  "faqTitleHighlight": "frequentes",
+  "faqs": {
+    "0": {
+      "question": "Como funciona o processo de desenvolvimento?",
+      "answer": "O processo começa com uma conversa para entender suas necessidades, seguido de planejamento, design, desenvolvimento, testes e implantação. Mantenho você atualizado em cada etapa."
+    },
+    "1": {
+      "question": "Quanto tempo leva para desenvolver um projeto?",
+      "answer": "O prazo varia conforme a complexidade. Projetos simples podem levar 2-4 semanas, enquanto projetos complexos podem levar 2-6 meses. Tudo depende do escopo e requisitos."
+    },
+    "2": {
+      "question": "Você oferece suporte após o lançamento?",
+      "answer": "Sim! Ofereço suporte contínuo e manutenção para garantir que seu projeto continue funcionando perfeitamente após o lançamento."
+    },
+    "3": {
+      "question": "Como são feitos os pagamentos?",
+      "answer": "Trabalho com um modelo flexível de pagamento, geralmente dividido em etapas: início, marcos de desenvolvimento e entrega final."
+    }
+  },
+  "socialTitlePrefix": "Conecte-se comigo nas",
+  "socialTitleHighlight": "redes sociais",
+  "socialDescription": "Acompanhe meus projetos, artigos e novidades nas redes sociais.",
+  "availableNow": "Disponível para novos projetos",
+  "responseTime": "Resposta em até 24h"
+}

@@ -1,0 +1,29 @@
+{
+  "stats": {
+    "0": { "label": "Projetos Entregues" },
+    "1": { "label": "Clientes Satisfeitos" },
+    "2": { "label": "Anos de Experiência" },
+    "3": { "label": "Tecnologias" }
+  },
+  "experiences": {
+    "0": {
+      "title": "Desenvolvedor Full Stack",
+      "description": "Desenvolvimento de aplicações web completas, desde o design até a implantação em produção.",
+      "achievements": [
+        "Criação de plataformas para turismo",
+        "Implementação de sistemas em tempo real com WebSocket",
+        "Otimização de performance e SEO"
+      ]
+    },
+    "1": {
+      "title": "Desenvolvedor Frontend",
+      "company": "Sosoft",
+      "description": "Desenvolvimento de interfaces modernas e responsivas com React e TypeScript.",
+      "achievements": [
+        "Participação na criação do Sistema Integrado Provincial da Educação",
+        "Contribuição na Plataforma de Acesso ao Ensino Tecnico Profissional",
+        "Contribuição na Plataforma de Gestão Academica do Instituto Politecnico Industrial de Luanda"
+      ]
+    }
+  }
+}
