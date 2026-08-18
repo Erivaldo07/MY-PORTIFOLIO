@@ -400,63 +400,10 @@ function Home() {
             </div>
           </Reveal>
 
-          <div className="relative">
-            <div className="absolute left-4 md:left-1/2 h-full w-0.5 bg-linear-to-b from-primary/20 via-primary/40 to-primary/20 -translate-x-1/2" />
 
-            {experiences.map((exp, index) => (
-              <Reveal key={`${exp.title}-${index}`} delay={index * 150}>
-                <div
-                  className={`relative flex flex-col md:flex-row gap-8 mb-12 ${
-                    index % 2 === 0 ? 'md:pr-12' : 'md:pl-12 md:flex-row-reverse'
-                  }`}
-                >
-                  <div className="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-primary border-4 border-card transform -translate-x-1/2 z-10">
-                    <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
-                  </div>
 
-                  <div
-                    className={`flex-1 ml-12 md:ml-0 ${index % 2 === 0 ? 'md:text-right' : ''}`}
-                  >
-                    <div className="bg-card border border-border/50 rounded-xl p-6 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5">
-                      <div className="flex items-center gap-3 mb-3">
-                        <Briefcase className="w-5 h-5 text-primary" />
 
-                        <div>
-                          <h3 className="font-semibold text-lg">{exp.title}</h3>
-                          {exp.company && (
-                            <p className="text-sm text-primary">{exp.company}</p>
-                          )}
-                        </div>
-                      </div>
-
-                      <p className="text-sm text-muted-foreground mb-3 flex items-center gap-2">
-                        <Calendar className="w-4 h-4" />
-                        {exp.period}
-                      </p>
-
-                      <p className="text-sm text-muted-foreground mb-3">
-                        {exp.description}
-                      </p>
-
-                      <ul className="space-y-1.5">
-                        {exp.achievements.map((item) => (
-                          <li
-                            key={item}
-                            className="flex items-start gap-2 text-sm text-muted-foreground"
-                          >
-                            <CheckCircle className="w-4 h-4 text-primary/70 mt-0.5 shrink-0" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-              {/*Trajecto Académico*/}
+                        {/*Trajecto Académico*/}
 
           <div className="relative">
             <div className="absolute left-4 md:left-1/2 h-full w-0.5 bg-linear-to-b from-primary/20 via-primary/40 to-primary/20 -translate-x-1/2" />
@@ -514,7 +461,63 @@ function Home() {
           </div>
 
 
+          {/*Experiência Profissional*/}
 
+          <div className="relative">
+            <div className="absolute left-4 md:left-1/2 h-full w-0.5 bg-linear-to-b from-primary/20 via-primary/40 to-primary/20 -translate-x-1/2" />
+
+            {experiences.map((exp, index) => (
+              <Reveal key={`${exp.title}-${index}`} delay={index * 150}>
+                <div
+                  className={`relative flex flex-col md:flex-row gap-8 mb-12 ${
+                    index % 2 === 0 ? 'md:pr-12' : 'md:pl-12 md:flex-row-reverse'
+                  }`}
+                >
+                  <div className="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-primary border-4 border-card transform -translate-x-1/2 z-10">
+                    <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
+                  </div>
+
+                  <div
+                    className={`flex-1 ml-12 md:ml-0 ${index % 2 === 0 ? 'md:text-right' : ''}`}
+                  >
+                    <div className="bg-card border border-border/50 rounded-xl p-6 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Briefcase className="w-5 h-5 text-primary" />
+
+                        <div>
+                          <h3 className="font-semibold text-lg">{exp.title}</h3>
+                          {exp.company && (
+                            <p className="text-sm text-primary">{exp.company}</p>
+                          )}
+                        </div>
+                      </div>
+
+                      <p className="text-sm text-muted-foreground mb-3 flex items-center gap-2">
+                        <Calendar className="w-4 h-4" />
+                        {exp.period}
+                      </p>
+
+                      <p className="text-sm text-muted-foreground mb-3">
+                        {exp.description}
+                      </p>
+
+                      <ul className="space-y-1.5">
+                        {exp.achievements.map((item) => (
+                          <li
+                            key={item}
+                            className="flex items-start gap-2 text-sm text-muted-foreground"
+                          >
+                            <CheckCircle className="w-4 h-4 text-primary/70 mt-0.5 shrink-0" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
 

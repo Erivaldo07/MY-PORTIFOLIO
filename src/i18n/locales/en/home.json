@@ -37,6 +37,17 @@
         "Learning best development practices and agile methodologies"
 
       ]
+    },
+
+    "1": {
+      "title": "Computer Engineering",
+      "institution": "Lusíadas University of Angola",
+      "label": "2026 - Ongoing",
+      "description": "Computer engineering course focusing on software development and computational systems.",
+      "achievements": [
+        "Development of Software and Computational Systems"
+
+      ]
     }
 
   }
