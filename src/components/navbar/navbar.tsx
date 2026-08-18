@@ -1,22 +1,28 @@
 import { NavLink, useLocation } from 'react-router-dom'
 import { Code2, Menu, X, Home, User, FolderGit2, Mail, Sparkles, Terminal } from 'lucide-react'
-import ThemeToggle from '@/components/common/ThemeToggle'
-import { useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence, type Variants } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
-import LanguageSwitcher from "@/components/language/LanguageSwitcher"
+import ThemeToggle from '@/components/common/ThemeToggle'
+import LanguageSwitcher from '@/components/language/LanguageSwitcher'
+
+// ============================================================
+// LINKS DE NAVEGAÇÃO
+// ============================================================
+// `to` e `icon` são estruturais. O label vem de nav.{navKey} no
+// common.json — não muda a rota, só o texto exibido.
 
 const links = [
-  { to: '/', label: 'Inicio', icon: Home },
-  { to: '/sobre', label: 'Sobre', icon: User },
-  { to: '/projetos', label: 'Projetos', icon: FolderGit2 },
-  { to: '/contacto', label: 'Contacto', icon: Mail },
+  { to: '/', navKey: 'home', icon: Home },
+  { to: '/sobre', navKey: 'about', icon: User },
+  { to: '/projetos', navKey: 'projects', icon: FolderGit2 },
+  { to: '/contacto', navKey: 'contact', icon: Mail },
 ]
 
 const socialLinks = [
   { icon: FaGithub, url: 'https://github.com/Erivaldo07', label: 'GitHub' },
   { icon: FaLinkedin, url: 'https://www.linkedin.com/in/erivaldo-manuel-5076492aa/', label: 'LinkedIn' },
-
 ]
 
 // Animação do menu mobile
@@ -24,10 +30,7 @@ const menuVariants: Variants = {
   closed: {
     opacity: 0,
     x: '100%',
-    transition: {
-      duration: 0.3,
-      ease: 'easeInOut',
-    },
+    transition: { duration: 0.3, ease: 'easeInOut' },
   },
   open: {
     opacity: 1,
@@ -41,42 +44,18 @@ const menuVariants: Variants = {
   },
 }
 
-// Animação de cada item dentro do menu mobile
 const itemVariants: Variants = {
-  closed: {
-    opacity: 0,
-    x: 20,
-    transition: {
-      duration: 0.2,
-    },
-  },
-  open: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.3,
-      ease: 'easeOut',
-    },
-  },
+  closed: { opacity: 0, x: 20, transition: { duration: 0.2 } },
+  open: { opacity: 1, x: 0, transition: { duration: 0.3, ease: 'easeOut' } },
 }
 
-// Animação do overlay escuro atrás do menu mobile
 const overlayVariants: Variants = {
-  closed: {
-    opacity: 0,
-    transition: {
-      duration: 0.3,
-    },
-  },
-  open: {
-    opacity: 1,
-    transition: {
-      duration: 0.3,
-    },
-  },
+  closed: { opacity: 0, transition: { duration: 0.3 } },
+  open: { opacity: 1, transition: { duration: 0.3 } },
 }
 
 function Navbar() {
+  const { t } = useTranslation('common')
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
@@ -88,13 +67,41 @@ function Navbar() {
     }
   }, [location])
 
+  // Trava o scroll do conteúdo de fundo enquanto o menu mobile está aberto.
+  // `position: fixed` só no <body> não é suficiente em todo navegador —
+  // travamos também o <html> e forçamos `overflow: hidden` nos dois,
+  // além de fixar a posição pra evitar o bounce scroll do iOS.
+  useEffect(() => {
+    if (!isOpen) return
+
+    const scrollY = window.scrollY
+    const bodyStyle = document.body.style
+    const htmlStyle = document.documentElement.style
+
+    bodyStyle.position = 'fixed'
+    bodyStyle.top = `-${scrollY}px`
+    bodyStyle.left = '0'
+    bodyStyle.right = '0'
+    bodyStyle.width = '100%'
+    bodyStyle.overflow = 'hidden'
+    htmlStyle.overflow = 'hidden'
+
+    return () => {
+      bodyStyle.position = ''
+      bodyStyle.top = ''
+      bodyStyle.left = ''
+      bodyStyle.right = ''
+      bodyStyle.width = ''
+      bodyStyle.overflow = ''
+      htmlStyle.overflow = ''
+      window.scrollTo(0, scrollY)
+    }
+  }, [isOpen])
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
 
-      // Progresso de leitura da página, em %. Guardado em estado para que
-      // a barra realmente re-renderize a cada scroll — antes o valor era
-      // lido direto no JSX e nunca atualizava.
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
       const progress = scrollHeight > 0 ? (window.scrollY / scrollHeight) * 100 : 0
       setScrollProgress(progress)
@@ -141,7 +148,7 @@ function Navbar() {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
               <div className="flex items-center gap-1">
-                {links.map(link => (
+                {links.map((link) => (
                   <NavLink
                     key={link.to}
                     to={link.to}
@@ -154,7 +161,7 @@ function Navbar() {
                   >
                     {({ isActive }) => (
                       <>
-                        <span className="relative z-10">{link.label}</span>
+                        <span className="relative z-10">{t(`nav.${link.navKey}`)}</span>
                         {isActive && (
                           <motion.div
                             layoutId="navbar-indicator"
@@ -174,9 +181,8 @@ function Navbar() {
                 <ThemeToggle />
                 <LanguageSwitcher />
 
-                {/* Social links desktop */}
                 <div className="flex items-center gap-1 ml-2 pl-2 border-l border-border/50">
-                  {socialLinks.map(social => (
+                  {socialLinks.map((social) => (
                     <a
                       key={social.label}
                       href={social.url}
@@ -184,7 +190,7 @@ function Navbar() {
                       rel="noopener noreferrer"
                       className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-300"
                       aria-label={social.label}
-                      >
+                    >
                       <social.icon className="w-4 h-4" />
                     </a>
                   ))}
@@ -200,7 +206,7 @@ function Navbar() {
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="relative p-2 rounded-lg text-foreground hover:bg-muted/50 transition-all duration-300"
-                aria-label={isOpen ? 'Fechar menu' : 'Abrir menu'}
+                aria-label={isOpen ? t('navbar.closeMenu') : t('navbar.openMenu')}
                 aria-expanded={isOpen}
               >
                 <AnimatePresence mode="wait">
@@ -221,7 +227,7 @@ function Navbar() {
                       animate={{ rotate: 0, opacity: 1 }}
                       exit={{ rotate: -90, opacity: 0 }}
                       transition={{ duration: 0.2 }}
-                      >
+                    >
                       <Menu className="w-6 h-6" />
                     </motion.div>
                   )}
@@ -231,7 +237,6 @@ function Navbar() {
           </div>
         </nav>
 
-        {/* Indicador de progresso de scroll */}
         <div className="h-0.5 bg-primary/10 relative overflow-hidden">
           <motion.div
             className="absolute inset-0 bg-linear-to-r from-primary via-primary/50 to-primary"
@@ -246,7 +251,6 @@ function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Overlay com blur */}
             <motion.div
               variants={overlayVariants}
               initial="closed"
@@ -256,33 +260,14 @@ function Navbar() {
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Menu Mobile */}
             <motion.div
               variants={menuVariants}
               initial="closed"
               animate="open"
               exit="closed"
-              className="fixed right-0 top-0 z-40 h-full w-full max-w-sm bg-card/95 backdrop-blur-xl border-l border-border/50 shadow-2xl md:hidden"
+              className="fixed right-0 top-16 sm:top-20 z-40 h-[calc(100%-4rem)] sm:h-[calc(100%-5rem)] w-full max-w-sm bg-card/95 backdrop-blur-xl border-l border-t border-border/50 shadow-2xl md:hidden"
             >
               <div className="flex flex-col h-full">
-                {/* Header do menu mobile */}
-                <div className="flex items-center justify-between p-4 border-b border-border/50">
-                  <div className="flex items-center gap-2">
-                    <div className="p-1.5 rounded-lg bg-primary/10">
-                      <Code2 size={18} className="text-primary" />
-                    </div>
-                    <span className="font-semibold">Menu</span>
-                  </div>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="p-2 rounded-lg hover:bg-muted/50 transition-colors"
-                    aria-label="Fechar menu"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
-
-                {/* Links do menu */}
                 <nav className="flex-1 overflow-y-auto p-4">
                   <div className="space-y-1">
                     {links.map((link, index) => (
@@ -302,7 +287,7 @@ function Navbar() {
                           onClick={() => setIsOpen(false)}
                         >
                           <link.icon className="w-5 h-5" />
-                          <span className="font-medium">{link.label}</span>
+                          <span className="font-medium">{t(`nav.${link.navKey}`)}</span>
                           {location.pathname === link.to && (
                             <motion.div
                               layoutId="mobile-indicator"
@@ -314,10 +299,8 @@ function Navbar() {
                     ))}
                   </div>
 
-                  {/* Divider */}
                   <div className="my-6 border-t border-border/50" />
 
-                  {/* Info do desenvolvedor */}
                   <motion.div
                     variants={itemVariants}
                     custom={links.length}
@@ -329,22 +312,21 @@ function Navbar() {
                       </div>
                       <div>
                         <p className="text-sm font-medium">Erivaldo Manuel</p>
-                        <p className="text-xs text-muted-foreground">Full Stack Developer</p>
+                        <p className="text-xs text-muted-foreground">{t('hero.role')}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2 mt-3">
                       <Sparkles className="w-3 h-3 text-primary" />
-                      <span className="text-xs text-muted-foreground">Disponível para projetos</span>
+                      <span className="text-xs text-muted-foreground">{t('hero.available')}</span>
                     </div>
                   </motion.div>
 
-                  {/* Social links mobile */}
                   <motion.div
                     variants={itemVariants}
                     custom={links.length + 1}
                     className="mt-4 flex items-center justify-center gap-3"
                   >
-                    {socialLinks.map(social => (
+                    {socialLinks.map((social) => (
                       <a
                         key={social.label}
                         href={social.url}
@@ -359,9 +341,10 @@ function Navbar() {
                   </motion.div>
                 </nav>
 
-                {/* Footer do menu mobile */}
                 <div className="p-4 border-t border-border/50 text-center">
-                  <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Erivaldo Manuel</p>
+                  <p className="text-xs text-muted-foreground">
+                    © {new Date().getFullYear()} Erivaldo Manuel
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -369,7 +352,6 @@ function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Espaçador para conteúdo */}
       <div className="h-16 sm:h-20" />
     </>
   )

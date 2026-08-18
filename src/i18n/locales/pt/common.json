@@ -116,10 +116,37 @@
     "shareLabel": "Compartilhar"
   },
   "footer": {
-    "rights": "Todos os direitos reservados."
+    "rights": "Todos os direitos reservados.",
+    "craftedWith": "feito com carinho",
+    "backToTop": "Voltar ao topo",
+    "detailed": {
+      "aboutTitle": "Sobre",
+      "aboutDescription": "Desenvolvedor Full Stack apaixonado por criar soluções inovadoras e experiências digitais excepcionais.",
+      "linksTitle": "Links",
+      "quickLinks": {
+        "projects": "Projetos",
+        "about": "Sobre",
+        "experience": "Experiência",
+        "contact": "Contato"
+      },
+      "contactTitle": "Contato",
+      "availableForProjects": "Disponível para projetos",
+      "socialTitle": "Redes Sociais",
+      "ctaText": "Vamos construir algo incrível juntos!",
+      "privacyPolicy": "Política de Privacidade",
+      "termsOfUse": "Termos de Uso"
+    },
+    "standard": {
+      "builtWith": "Construído com"
+    }
   },
   "language": {
     "pt": "Português",
     "en": "English"
+  },
+  "navbar": {
+    "menu": "Menu",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu"
   }
 }

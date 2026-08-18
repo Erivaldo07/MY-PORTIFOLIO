@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Search,
@@ -19,18 +20,21 @@ import {
 } from 'lucide-react'
 import Reveal from '@/components/common/Reveal'
 import ProjectCard from '@/components/common/ProjectCard'
-import { projects } from '@/data/projects'
+import { useTranslatedProjects } from '@/hooks/useTranslatedProjects'
 
 // ============================================================
 // CATEGORIES
 // ============================================================
+// `id` é estrutural (usado para filtrar/comparar com project.category)
+// e nunca muda. O label vem de projectsPage.categories.{key} no
+// common.json — por isso cada item carrega também a `key` de tradução.
 
 const categories = [
-  { id: 'all', label: 'Todos', icon: Grid3x3 },
-  { id: 'web', label: 'Web Apps', icon: Code2 },
-  { id: 'mobile', label: 'Mobile', icon: Layers },
-  { id: 'enterprise', label: 'Enterprise', icon: Briefcase },
-  { id: 'open-source', label: 'Open Source', icon: Star },
+  { id: 'all', key: 'all', icon: Grid3x3 },
+  { id: 'web', key: 'web', icon: Code2 },
+  { id: 'mobile', key: 'mobile', icon: Layers },
+  { id: 'enterprise', key: 'enterprise', icon: Briefcase },
+  { id: 'open-source', key: 'openSource', icon: Star },
 ]
 
 // ============================================================
@@ -38,10 +42,10 @@ const categories = [
 // ============================================================
 
 const sortOptions = [
-  { id: 'newest', label: 'Mais Recentes' },
-  { id: 'oldest', label: 'Mais Antigos' },
-  { id: 'alphabetical', label: 'A-Z' },
-  { id: 'popular', label: 'Mais Populares' },
+  { id: 'newest', key: 'newest' },
+  { id: 'oldest', key: 'oldest' },
+  { id: 'alphabetical', key: 'alphabetical' },
+  { id: 'popular', key: 'popular' },
 ]
 
 // ============================================================
@@ -55,13 +59,6 @@ type ViewMode = 'grid' | 'list'
 // DATE HELPER
 // ============================================================
 
-/**
- * Converte uma data para timestamp de forma segura.
- *
- * O campo `date` dos projetos pode ser `string | undefined`,
- * então não podemos fazer diretamente `new Date(project.date)`.
- * Caso a data não exista ou seja inválida, retornamos 0.
- */
 const getProjectTimestamp = (date?: string): number => {
   if (!date) return 0
   const timestamp = new Date(date).getTime()
@@ -73,6 +70,9 @@ const getProjectTimestamp = (date?: string): number => {
 // ============================================================
 
 function Projetos() {
+  const { t } = useTranslation('common')
+  const projects = useTranslatedProjects()
+
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [sortBy, setSortBy] = useState<SortOption>('newest')
@@ -86,7 +86,6 @@ function Projetos() {
   const filteredProjects = useMemo(() => {
     let filtered = [...projects]
 
-    // --- Search ---
     const term = searchTerm.trim().toLowerCase()
 
     if (term) {
@@ -108,14 +107,12 @@ function Projetos() {
       })
     }
 
-    // --- Category ---
     if (selectedCategory !== 'all') {
       filtered = filtered.filter(
         (project) => project.category === selectedCategory
       )
     }
 
-    // --- Sort ---
     switch (sortBy) {
       case 'newest':
         filtered.sort(
@@ -142,7 +139,7 @@ function Projetos() {
     }
 
     return filtered
-  }, [searchTerm, selectedCategory, sortBy])
+  }, [projects, searchTerm, selectedCategory, sortBy])
 
   // ==========================================================
   // STATISTICS
@@ -155,7 +152,7 @@ function Projetos() {
       technologies: new Set(projects.flatMap((project) => project.stack ?? []))
         .size,
     }),
-    []
+    [projects]
   )
 
   // ==========================================================
@@ -179,7 +176,6 @@ function Projetos() {
       ==================================================== */}
 
       <div className="relative overflow-hidden">
-        {/* Background */}
         <div className="absolute inset-0 -z-10 pointer-events-none">
           <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-linear-to-bl from-primary/10 via-transparent to-transparent rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-linear-to-tr from-primary/5 via-transparent to-transparent rounded-full blur-3xl" />
@@ -190,14 +186,14 @@ function Projetos() {
           <Reveal>
             <div className="flex flex-wrap items-center gap-3 mb-5">
               <span className="text-xs font-mono uppercase tracking-wider text-primary/80 bg-primary/10 px-3 py-1.5 rounded-full">
-                Portfólio
+                {t('projectsPage.badge')}
               </span>
 
               <span className="text-xs text-muted-foreground">•</span>
 
               <span className="text-xs text-muted-foreground flex items-center gap-1.5">
                 <Rocket className="w-3 h-3" />
-                {stats.total} projetos
+                {t('projectsPage.projectsCount', { count: stats.total })}
               </span>
             </div>
           </Reveal>
@@ -205,17 +201,17 @@ function Projetos() {
           {/* Title */}
           <Reveal delay={100}>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-5 max-w-4xl">
-              Onde o código encontra o{' '}
-              <span className="gradient-text">utilizador real</span>
+              {t('projectsPage.titlePrefix')}{' '}
+              <span className="gradient-text">
+                {t('projectsPage.titleHighlight')}
+              </span>
             </h1>
           </Reveal>
 
           {/* Description */}
           <Reveal delay={200}>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mb-8 leading-relaxed">
-              Uma coleção de projetos que resolvem problemas reais, desde
-              aplicações web escaláveis até soluções inovadoras com
-              diferentes tecnologias.
+              {t('projectsPage.description')}
             </p>
           </Reveal>
 
@@ -230,7 +226,7 @@ function Projetos() {
                 <div>
                   <span className="text-sm font-semibold">{stats.total}</span>
                   <span className="text-xs text-muted-foreground ml-1">
-                    projetos
+                    {t('projectsPage.statProjects')}
                   </span>
                 </div>
               </div>
@@ -245,7 +241,7 @@ function Projetos() {
                     {stats.categories}
                   </span>
                   <span className="text-xs text-muted-foreground ml-1">
-                    categorias
+                    {t('projectsPage.statCategories')}
                   </span>
                 </div>
               </div>
@@ -260,7 +256,7 @@ function Projetos() {
                     {stats.technologies}
                   </span>
                   <span className="text-xs text-muted-foreground ml-1">
-                    tecnologias
+                    {t('projectsPage.statTechnologies')}
                   </span>
                 </div>
               </div>
@@ -282,7 +278,7 @@ function Projetos() {
 
               <input
                 type="text"
-                placeholder="Buscar projetos..."
+                placeholder={t('projectsPage.searchPlaceholder')}
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
                 className="w-full md:max-w-xs pl-9 pr-9 py-2.5 rounded-lg bg-background border border-border outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 text-sm"
@@ -292,7 +288,7 @@ function Projetos() {
                 <button
                   type="button"
                   onClick={() => setSearchTerm('')}
-                  aria-label="Limpar pesquisa"
+                  aria-label={t('projectsPage.clearFilters')}
                   className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-muted rounded-full transition-colors"
                 >
                   <X className="w-3 h-3 text-muted-foreground" />
@@ -305,6 +301,7 @@ function Projetos() {
               {categories.map((category) => {
                 const Icon = category.icon
                 const isActive = selectedCategory === category.id
+                const label = t(`projectsPage.categories.${category.key}`)
 
                 return (
                   <button
@@ -318,7 +315,7 @@ function Projetos() {
                     }`}
                   >
                     <Icon className="w-3 h-3" />
-                    {category.label}
+                    {label}
                   </button>
                 )
               })}
@@ -333,7 +330,7 @@ function Projetos() {
                 className="md:hidden flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-muted/30 text-sm hover:bg-muted/50 transition-colors flex-1"
               >
                 <Filter className="w-4 h-4" />
-                Filtros
+                {t('projectsPage.filters')}
                 <ChevronDown
                   className={`w-3 h-3 transition-transform ${
                     showFilters ? 'rotate-180' : ''
@@ -346,7 +343,7 @@ function Projetos() {
                 <button
                   type="button"
                   onClick={() => setViewMode('grid')}
-                  aria-label="Visualização em grade"
+                  aria-label="Grid"
                   className={`p-1.5 rounded transition-colors ${
                     viewMode === 'grid'
                       ? 'bg-background shadow-sm'
@@ -359,7 +356,7 @@ function Projetos() {
                 <button
                   type="button"
                   onClick={() => setViewMode('list')}
-                  aria-label="Visualização em lista"
+                  aria-label="List"
                   className={`p-1.5 rounded transition-colors ${
                     viewMode === 'list'
                       ? 'bg-background shadow-sm'
@@ -376,12 +373,12 @@ function Projetos() {
                 onChange={(event) =>
                   setSortBy(event.target.value as SortOption)
                 }
-                aria-label="Ordenar projetos"
+                aria-label={t('projectsPage.filters')}
                 className="px-3 py-2 rounded-lg bg-muted/30 border border-border text-sm outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300"
               >
                 {sortOptions.map((option) => (
                   <option key={option.id} value={option.id}>
-                    {option.label}
+                    {t(`projectsPage.sort.${option.key}`)}
                   </option>
                 ))}
               </select>
@@ -401,6 +398,7 @@ function Projetos() {
                   {categories.map((category) => {
                     const Icon = category.icon
                     const isActive = selectedCategory === category.id
+                    const label = t(`projectsPage.categories.${category.key}`)
 
                     return (
                       <button
@@ -417,7 +415,7 @@ function Projetos() {
                         }`}
                       >
                         <Icon className="w-3 h-3" />
-                        {category.label}
+                        {label}
                       </button>
                     )
                   })}
@@ -429,15 +427,15 @@ function Projetos() {
           {/* Results count */}
           <div className="flex items-center justify-between gap-4 mt-3">
             <span className="text-xs text-muted-foreground">
-              {filteredProjects.length} projeto
-              {filteredProjects.length !== 1 ? 's' : ''} encontrado
-              {filteredProjects.length !== 1 ? 's' : ''}
+              {t('projectsPage.resultsFound', {
+                count: filteredProjects.length,
+              })}
             </span>
 
             {filteredProjects.length === 0 && (
               <span className="text-xs text-muted-foreground flex items-center gap-1">
                 <Sparkles className="w-3 h-3" />
-                Nenhum projeto encontrado
+                {t('projectsPage.noneFound')}
               </span>
             )}
           </div>
@@ -505,11 +503,11 @@ function Projetos() {
               </div>
 
               <h3 className="text-lg font-semibold mb-2">
-                Nenhum projeto encontrado
+                {t('projectsPage.emptyTitle')}
               </h3>
 
               <p className="text-muted-foreground text-sm">
-                Tente ajustar os filtros ou realizar uma nova busca.
+                {t('projectsPage.emptyDescription')}
               </p>
 
               <button
@@ -517,7 +515,7 @@ function Projetos() {
                 onClick={clearFilters}
                 className="mt-5 text-primary hover:underline text-sm font-medium"
               >
-                Limpar filtros
+                {t('projectsPage.clearFilters')}
               </button>
             </motion.div>
           )}
@@ -538,19 +536,18 @@ function Projetos() {
             </div>
 
             <h2 className="text-2xl sm:text-3xl font-bold mb-3">
-              Tem um projeto em mente?
+              {t('projectsPage.ctaTitle')}
             </h2>
 
             <p className="text-muted-foreground mb-7 max-w-2xl mx-auto leading-relaxed">
-              Vamos transformar a sua ideia em realidade. Entre em contacto e
-              vamos construir algo incrível juntos.
+              {t('projectsPage.ctaDescription')}
             </p>
 
             <Link
               to="/contacto"
               className="group btn-primary inline-flex items-center gap-2"
             >
-              Vamos Conversar
+              {t('projectsPage.ctaButton')}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Reveal>
