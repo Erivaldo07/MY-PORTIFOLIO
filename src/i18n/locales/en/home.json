@@ -25,5 +25,21 @@
         "Contributed to the Academic Management Platform for the Luanda Industrial Polytechnic Institute"
       ]
     }
+  },
+  "academic":{
+    "0": {
+      "title": "Intermediate Technical Informatics",
+      "institution": "Luanda Industrial Polytechnic Institute",
+      "label": "2022 - 2026",
+      "description": "Intermediate technical course in computer science, focusing on software development, systems and network administration, as well as electronic equipment maintenance.",
+      "achievements": [
+        "Development of academic projects in various programming languages",
+        "Learning best development practices and agile methodologies"
+
+      ]
+    }
+
   }
+
+
 }

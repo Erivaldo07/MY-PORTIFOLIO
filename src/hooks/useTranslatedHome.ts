@@ -20,5 +20,17 @@ export function useTranslatedHome() {
     }) as string[],
   }))
 
-  return { stats, experiences }
+  const academic = experiencesBase.map((exp, index) => ({
+    ...exp,
+    title: t(`academic.${index}.title`, { defaultValue: '' }),
+    institution: t(`academic.${index}.institution`, { defaultValue: '' }),
+    label: t(`academic.${index}.label`, { defaultValue: '' }),
+    description: t(`academic.${index}.description`, { defaultValue: '' }),
+    achievements: t(`academic.${index}.achievements`, {
+      returnObjects: true,
+      defaultValue: [],
+    }) as string[],
+  }))
+
+  return { stats, experiences, academic }
 }

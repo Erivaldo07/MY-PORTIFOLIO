@@ -16,7 +16,7 @@
       ]
     },
     "1": {
-      "title": "Desenvolvedor Frontend",
+      "title": "Desenvolvedor Full Stack",
       "company": "Sosoft",
       "description": "Desenvolvimento de interfaces modernas e responsivas com React e TypeScript.",
       "achievements": [
@@ -25,5 +25,21 @@
         "Contribuição na Plataforma de Gestão Academica do Instituto Politecnico Industrial de Luanda"
       ]
     }
+  },
+
+
+  "academic":{
+    "0": {
+      "title": "Tecnico Médio em Informática",
+      "institution": "Instituto Politécnico Industrial de Luanda",
+      "label": "2022 - 2026",
+      "description": "Curso técnico médio em informática, com foco em desenvolvimento de software e administração de sistemas e redes, bem na manutenção de equipamentos eletrônicos.",
+      "achievements": [
+        "Desenvolvimento de projetos acadêmicos em diversas linguagens de programação",
+        "Aprendizado de boas práticas de desenvolvimento e metodologias ágeis"
+
+      ]
+    }
+
   }
 }
