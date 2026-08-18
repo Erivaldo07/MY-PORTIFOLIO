@@ -67,6 +67,37 @@ function Navbar() {
     }
   }, [location])
 
+  // Trava o scroll do conteúdo de fundo enquanto o menu mobile está aberto.
+  // `position: fixed` só no <body> não é suficiente em todo navegador —
+  // travamos também o <html> e forçamos `overflow: hidden` nos dois,
+  // além de fixar a posição pra evitar o bounce scroll do iOS.
+  useEffect(() => {
+    if (!isOpen) return
+
+    const scrollY = window.scrollY
+    const bodyStyle = document.body.style
+    const htmlStyle = document.documentElement.style
+
+    bodyStyle.position = 'fixed'
+    bodyStyle.top = `-${scrollY}px`
+    bodyStyle.left = '0'
+    bodyStyle.right = '0'
+    bodyStyle.width = '100%'
+    bodyStyle.overflow = 'hidden'
+    htmlStyle.overflow = 'hidden'
+
+    return () => {
+      bodyStyle.position = ''
+      bodyStyle.top = ''
+      bodyStyle.left = ''
+      bodyStyle.right = ''
+      bodyStyle.width = ''
+      bodyStyle.overflow = ''
+      htmlStyle.overflow = ''
+      window.scrollTo(0, scrollY)
+    }
+  }, [isOpen])
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
@@ -234,25 +265,9 @@ function Navbar() {
               initial="closed"
               animate="open"
               exit="closed"
-              className="fixed right-0 top-0 z-40 h-full w-full max-w-sm bg-card/95 backdrop-blur-xl border-l border-border/50 shadow-2xl md:hidden"
+              className="fixed right-0 top-16 sm:top-20 z-40 h-[calc(100%-4rem)] sm:h-[calc(100%-5rem)] w-full max-w-sm bg-card/95 backdrop-blur-xl border-l border-t border-border/50 shadow-2xl md:hidden"
             >
               <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between p-4 border-b border-border/50">
-                  <div className="flex items-center gap-2">
-                    <div className="p-1.5 rounded-lg bg-primary/10">
-                      <Code2 size={18} className="text-primary" />
-                    </div>
-                    <span className="font-semibold">{t('navbar.menu')}</span>
-                  </div>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="p-2 rounded-lg hover:bg-muted/50 transition-colors"
-                    aria-label={t('navbar.closeMenu')}
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
-
                 <nav className="flex-1 overflow-y-auto p-4">
                   <div className="space-y-1">
                     {links.map((link, index) => (
