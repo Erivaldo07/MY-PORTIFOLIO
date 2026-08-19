@@ -9,7 +9,6 @@
     "skipLibCheck": true,
 
     /* Alias de importação */
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
