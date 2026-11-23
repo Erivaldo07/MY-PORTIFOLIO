@@ -308,11 +308,10 @@ function Projetos() {
                     key={category.id}
                     type="button"
                     onClick={() => setSelectedCategory(category.id)}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
-                      isActive
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${isActive
                         ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30'
                         : 'bg-muted/30 text-muted-foreground hover:bg-muted/50 hover:text-foreground'
-                    }`}
+                      }`}
                   >
                     <Icon className="w-3 h-3" />
                     {label}
@@ -332,9 +331,8 @@ function Projetos() {
                 <Filter className="w-4 h-4" />
                 {t('projectsPage.filters')}
                 <ChevronDown
-                  className={`w-3 h-3 transition-transform ${
-                    showFilters ? 'rotate-180' : ''
-                  }`}
+                  className={`w-3 h-3 transition-transform ${showFilters ? 'rotate-180' : ''
+                    }`}
                 />
               </button>
 
@@ -344,11 +342,10 @@ function Projetos() {
                   type="button"
                   onClick={() => setViewMode('grid')}
                   aria-label="Grid"
-                  className={`p-1.5 rounded transition-colors ${
-                    viewMode === 'grid'
+                  className={`p-1.5 rounded transition-colors ${viewMode === 'grid'
                       ? 'bg-background shadow-sm'
                       : 'hover:bg-muted/50'
-                  }`}
+                    }`}
                 >
                   <Grid3x3 className="w-4 h-4" />
                 </button>
@@ -357,11 +354,10 @@ function Projetos() {
                   type="button"
                   onClick={() => setViewMode('list')}
                   aria-label="List"
-                  className={`p-1.5 rounded transition-colors ${
-                    viewMode === 'list'
+                  className={`p-1.5 rounded transition-colors ${viewMode === 'list'
                       ? 'bg-background shadow-sm'
                       : 'hover:bg-muted/50'
-                  }`}
+                    }`}
                 >
                   <List className="w-4 h-4" />
                 </button>
@@ -408,11 +404,10 @@ function Projetos() {
                           setSelectedCategory(category.id)
                           setShowFilters(false)
                         }}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                          isActive
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${isActive
                             ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30'
                             : 'bg-muted/30 text-muted-foreground hover:bg-muted/50'
-                        }`}
+                          }`}
                       >
                         <Icon className="w-3 h-3" />
                         {label}
@@ -455,11 +450,10 @@ function Projetos() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.25 }}
-              className={`grid gap-6 ${
-                viewMode === 'grid'
+              className={`grid gap-6 ${viewMode === 'grid'
                   ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
                   : 'grid-cols-1'
-              }`}
+                }`}
             >
               {filteredProjects.map((project, index) => (
                 <Reveal key={project.slug} delay={index * 50}>
