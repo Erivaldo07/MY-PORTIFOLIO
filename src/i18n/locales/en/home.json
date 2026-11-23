@@ -1,13 +1,13 @@
 {
   "stats": {
-    "0": { "label": "Projects Delivered" },
-    "1": { "label": "Happy Clients" },
-    "2": { "label": "Years of Experience" },
-    "3": { "label": "Technologies" }
+
+    "0": { "label": "Years of Experience" },
+    "1": { "label": "Technologies" }
   },
   "experiences": {
     "0": {
       "title": "Full Stack Developer",
+      "company": "IPIL Business Incubator",
       "description": "End-to-end development of web applications, from design through production deployment.",
       "achievements": [
         "Built tourism platforms",
@@ -16,8 +16,8 @@
       ]
     },
     "1": {
-      "title": "Frontend Developer",
-      "company": "Sosoft",
+      "title": "Full Stack Developer",
+      "company": "SOSOFT, Comércio e Prestação de Serviços, LDA",
       "description": "Development of modern, responsive interfaces with React and TypeScript.",
       "achievements": [
         "Contributed to building the Provincial Integrated Education System",
@@ -41,7 +41,7 @@
 
     "1": {
       "title": "Computer Engineering",
-      "institution": "Lusíadas University of Angola",
+      "institution": "Methodist University of Angola",
       "label": "2026 - Ongoing",
       "description": "Computer engineering course focusing on software development and computational systems.",
       "achievements": [
