@@ -1,7 +1,25 @@
-import { NavLink, useLocation } from 'react-router-dom'
-import { Code2, Menu, X, Home, User, FolderGit2, Mail, Sparkles, Terminal } from 'lucide-react'
+import { NavLink} from 'react-router-dom'
+import type { LucideIcon } from 'lucide-react'
+import {
+  Code2,
+  Menu,
+  X,
+  Home,
+  User,
+  FolderGit2,
+  Mail,
+  Terminal,
+  ArrowUpRight,
+} from 'lucide-react'
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence, type Variants } from 'framer-motion'
+import {
+  motion,
+  AnimatePresence,
+  MotionConfig,
+  useScroll,
+  useSpring,
+  type Variants,
+} from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import ThemeToggle from '@/components/common/ThemeToggle'
@@ -12,17 +30,33 @@ import LanguageSwitcher from '@/components/language/LanguageSwitcher'
 // ============================================================
 // `to` e `icon` são estruturais. O label vem de nav.{navKey} no
 // common.json — não muda a rota, só o texto exibido.
+// `cta: true` → no desktop o link aparece como botão de destaque
+// (à direita) em vez de ficar no grupo central.
 
-const links = [
+type NavItem = {
+  to: string
+  navKey: string
+  icon: LucideIcon
+  cta?: boolean
+}
+
+const links: NavItem[] = [
   { to: '/', navKey: 'home', icon: Home },
   { to: '/sobre', navKey: 'about', icon: User },
   { to: '/projetos', navKey: 'projects', icon: FolderGit2 },
-  { to: '/contacto', navKey: 'contact', icon: Mail },
+  { to: '/contacto', navKey: 'contact', icon: Mail, cta: true },
 ]
+
+const mainLinks = links.filter((l) => !l.cta)
+const ctaLink = links.find((l) => l.cta)
 
 const socialLinks = [
   { icon: FaGithub, url: 'https://github.com/Erivaldo07', label: 'GitHub' },
-  { icon: FaLinkedin, url: 'https://www.linkedin.com/in/erivaldo-manuel-5076492aa/', label: 'LinkedIn' },
+  {
+    icon: FaLinkedin,
+    url: 'https://www.linkedin.com/in/erivaldo-manuel-5076492aa/',
+    label: 'LinkedIn',
+  },
 ]
 
 // Animação do menu mobile
@@ -54,18 +88,43 @@ const overlayVariants: Variants = {
   open: { opacity: 1, transition: { duration: 0.3 } },
 }
 
+// Classes de foco reutilizadas (acessibilidade por teclado)
+const focusRing =
+  'outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background'
+
 function Navbar() {
   const { t } = useTranslation('common')
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [scrollProgress, setScrollProgress] = useState(0)
-  const location = useLocation()
 
+  // Barra de progresso: useScroll + useSpring escrevem direto no DOM,
+  // por isso o scroll já não provoca re-renders da navbar.
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 140,
+    damping: 28,
+    restDelta: 0.001,
+  })
+
+  // Fecha com Esc e quando o ecrã passa para desktop (md+)
   useEffect(() => {
-    return () => {
-      setIsOpen(false)
+    if (!isOpen) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false)
     }
-  }, [location])
+    const mq = window.matchMedia('(min-width: 768px)')
+    const handleBreakpoint = (e: MediaQueryListEvent) => {
+      if (e.matches) setIsOpen(false)
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    mq.addEventListener('change', handleBreakpoint)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      mq.removeEventListener('change', handleBreakpoint)
+    }
+  }, [isOpen])
 
   // Trava o scroll do conteúdo de fundo enquanto o menu mobile está aberto.
   // `position: fixed` só no <body> não é suficiente em todo navegador —
@@ -98,44 +157,61 @@ function Navbar() {
     }
   }, [isOpen])
 
+  // Só guarda um boolean → o React ignora o setState quando o valor
+  // não muda, então não há re-render a cada pixel de scroll.
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
-
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
-      const progress = scrollHeight > 0 ? (window.scrollY / scrollHeight) * 100 : 0
-      setScrollProgress(progress)
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 20)
 
     handleScroll()
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Com o menu aberto o header fica sempre sólido
+  const solid = scrolled || isOpen
+
   return (
-    <>
+    <MotionConfig reducedMotion="user">
+      {/* Skip link: aparece só ao navegar com Tab */}
+      <a
+        href="#main-content"
+        className="sr-only z-60 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      >
+        {t('navbar.skipToContent', 'Saltar para o conteúdo')}
+      </a>
+
       <header
         className={`
-          fixed top-0 left-0 right-0 z-50
-          transition-all duration-300
+          fixed inset-x-0 top-0 z-50 border-b transition-all duration-300
           ${
-            scrolled
-              ? 'bg-card/80 backdrop-blur-xl border-b border-border/50 shadow-lg'
-              : 'bg-transparent border-b border-border/20'
+            solid
+              ? 'border-border/50 bg-card/80 shadow-lg shadow-black/5 backdrop-blur-xl'
+              : 'border-transparent bg-transparent'
           }
         `}
       >
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16 sm:h-20">
+        <nav
+          aria-label={t('navbar.mainNavigation', 'Navegação principal')}
+          className="mx-auto max-w-7xl px-4 sm:px-6"
+        >
+          <div
+            className={`flex h-16 items-center justify-between gap-4 transition-all duration-300 ${
+              scrolled ? 'md:h-16' : 'md:h-20'
+            }`}
+          >
             {/* Logo */}
-            <NavLink to="/" className="flex items-center gap-2 group relative">
+            <NavLink
+              to="/"
+              aria-label={`Erivaldo Manuel — ${t('nav.home')}`}
+              className={`group relative flex shrink-0 items-center gap-2 rounded-lg ${focusRing}`}
+            >
               <div className="relative">
-                <div className="absolute inset-0 bg-linear-to-r from-primary/20 to-primary/5 rounded-lg blur-md group-hover:blur-xl transition-all duration-300" />
+                <div className="absolute inset-0 rounded-lg bg-linear-to-r from-primary/20 to-primary/5 blur-md transition-all duration-300 group-hover:blur-xl" />
                 <div className="relative flex items-center gap-2 font-semibold text-foreground">
-                  <div className="p-1.5 rounded-lg bg-linear-to-br from-primary/20 to-primary/5 border border-primary/10 group-hover:border-primary/30 transition-all duration-300">
+                  <div className="rounded-lg border border-primary/10 bg-linear-to-br from-primary/20 to-primary/5 p-1.5 transition-all duration-300 group-hover:border-primary/30">
                     <Code2
                       size={20}
-                      className="text-primary group-hover:scale-110 transition-transform duration-300"
+                      className="text-primary transition-transform duration-300 group-hover:scale-110"
                     />
                   </div>
                   <span className="text-lg font-bold tracking-tight">
@@ -145,71 +221,95 @@ function Navbar() {
               </div>
             </NavLink>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
-              <div className="flex items-center gap-1">
-                {links.map((link) => (
-                  <NavLink
-                    key={link.to}
-                    to={link.to}
-                    end={link.to === '/'}
-                    className={({ isActive }) => `
-                      relative px-3 py-2 rounded-lg text-sm font-medium
-                      transition-all duration-300
-                      ${isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'}
-                    `}
+            {/* Desktop: links centrados */}
+            <div className="hidden flex-1 items-center justify-center gap-1 md:flex">
+              {mainLinks.map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  end={link.to === '/'}
+                  className={({ isActive }) => `
+                    relative rounded-lg px-3.5 py-2 text-sm font-medium
+                    transition-colors duration-300 ${focusRing}
+                    ${
+                      isActive
+                        ? 'text-foreground'
+                        : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
+                    }
+                  `}
+                >
+                  {({ isActive }) => (
+                    <>
+                      <span className="relative z-10">{t(`nav.${link.navKey}`)}</span>
+                      {isActive && (
+                        <motion.span
+                          layoutId="navbar-indicator"
+                          className="absolute inset-0 rounded-lg border border-primary/20 bg-primary/10"
+                          transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                        />
+                      )}
+                    </>
+                  )}
+                </NavLink>
+              ))}
+            </div>
+
+            {/* Desktop: ações à direita */}
+            <div className="hidden items-center gap-2 md:flex">
+              <ThemeToggle />
+              <LanguageSwitcher />
+
+              <div className="ml-1 hidden items-center gap-1 border-l border-border/50 pl-3 lg:flex">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    title={social.label}
+                    className={`rounded-lg p-2 text-muted-foreground transition-all duration-300 hover:bg-muted/50 hover:text-foreground ${focusRing}`}
                   >
-                    {({ isActive }) => (
-                      <>
-                        <span className="relative z-10">{t(`nav.${link.navKey}`)}</span>
-                        {isActive && (
-                          <motion.div
-                            layoutId="navbar-indicator"
-                            className="absolute inset-0 bg-primary/10 rounded-lg border border-primary/20"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.3 }}
-                          />
-                        )}
-                      </>
-                    )}
-                  </NavLink>
+                    <social.icon className="h-4 w-4" />
+                  </a>
                 ))}
               </div>
 
-              <div className="flex items-center gap-2">
-                <ThemeToggle />
-                <LanguageSwitcher />
-
-                <div className="flex items-center gap-1 ml-2 pl-2 border-l border-border/50">
-                  {socialLinks.map((social) => (
-                    <a
-                      key={social.label}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-300"
-                      aria-label={social.label}
-                    >
-                      <social.icon className="w-4 h-4" />
-                    </a>
-                  ))}
-                </div>
-              </div>
+              {ctaLink && (
+                <NavLink
+                  to={ctaLink.to}
+                  className={({ isActive }) => `
+                    group/cta ml-1 inline-flex items-center gap-1.5 rounded-lg border
+                    px-4 py-2 text-sm font-medium transition-all duration-300 ${focusRing}
+                    ${
+                      isActive
+                        ? 'border-primary/20 bg-primary/10 text-primary'
+                        : 'border-transparent bg-primary text-primary-foreground shadow-md shadow-primary/20 hover:-translate-y-px hover:shadow-lg hover:shadow-primary/30'
+                    }
+                  `}
+                >
+                  {t(`nav.${ctaLink.navKey}`)}
+                  <ArrowUpRight
+                    aria-hidden
+                    className="h-3.5 w-3.5 transition-transform duration-300 group-hover/cta:-translate-y-0.5 group-hover/cta:translate-x-0.5"
+                  />
+                </NavLink>
+              )}
             </div>
 
             {/* Mobile Controls */}
-            <div className="flex md:hidden items-center gap-2">
+            <div className="flex items-center gap-2 md:hidden">
               <ThemeToggle />
               <LanguageSwitcher />
 
               <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="relative p-2 rounded-lg text-foreground hover:bg-muted/50 transition-all duration-300"
+                onClick={() => setIsOpen((prev) => !prev)}
+                className={`relative rounded-lg p-2 text-foreground transition-all duration-300 hover:bg-muted/50 ${focusRing}`}
                 aria-label={isOpen ? t('navbar.closeMenu') : t('navbar.openMenu')}
                 aria-expanded={isOpen}
+                aria-controls="mobile-menu"
               >
-                <AnimatePresence mode="wait">
+                <AnimatePresence mode="wait" initial={false}>
                   {isOpen ? (
                     <motion.div
                       key="close"
@@ -218,7 +318,7 @@ function Navbar() {
                       exit={{ rotate: 90, opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <X className="w-6 h-6" />
+                      <X className="h-6 w-6" />
                     </motion.div>
                   ) : (
                     <motion.div
@@ -228,7 +328,7 @@ function Navbar() {
                       exit={{ rotate: -90, opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <Menu className="w-6 h-6" />
+                      <Menu className="h-6 w-6" />
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -237,17 +337,17 @@ function Navbar() {
           </div>
         </nav>
 
-        <div className="h-0.5 bg-primary/10 relative overflow-hidden">
-          <motion.div
-            className="absolute inset-0 bg-linear-to-r from-primary via-primary/50 to-primary"
-            initial={{ width: '0%' }}
-            animate={{ width: `${scrollProgress}%` }}
-            transition={{ duration: 0.1 }}
-          />
-        </div>
+        {/* Barra de progresso — absoluta, por isso não altera a altura do header */}
+        <motion.div
+          aria-hidden
+          style={{ scaleX }}
+          className={`absolute inset-x-0 bottom-0 h-0.5 origin-left bg-linear-to-r from-primary via-primary/60 to-primary transition-opacity duration-300 ${
+            isOpen ? 'opacity-0' : 'opacity-100'
+          }`}
+        />
       </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -256,43 +356,51 @@ function Navbar() {
               initial="closed"
               animate="open"
               exit="closed"
+              aria-hidden
               className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
               onClick={() => setIsOpen(false)}
             />
 
             <motion.div
+              id="mobile-menu"
+              role="dialog"
+              aria-label={t('navbar.mainNavigation', 'Navegação principal')}
               variants={menuVariants}
               initial="closed"
               animate="open"
               exit="closed"
-              className="fixed right-0 top-16 sm:top-20 z-40 h-[calc(100%-4rem)] sm:h-[calc(100%-5rem)] w-full max-w-sm bg-card/95 backdrop-blur-xl border-l border-t border-border/50 shadow-2xl md:hidden"
+              className="fixed right-0 top-16 z-40 h-[calc(100dvh-4rem)] w-full max-w-sm border-l border-t border-border/50 bg-card/95 shadow-2xl backdrop-blur-xl md:hidden"
             >
-              <div className="flex flex-col h-full">
-                <nav className="flex-1 overflow-y-auto p-4">
+              <div className="flex h-full flex-col">
+                <div className="flex-1 overflow-y-auto p-4">
                   <div className="space-y-1">
-                    {links.map((link, index) => (
-                      <motion.div key={link.to} variants={itemVariants} custom={index}>
+                    {links.map((link) => (
+                      <motion.div key={link.to} variants={itemVariants}>
                         <NavLink
                           to={link.to}
                           end={link.to === '/'}
+                          onClick={() => setIsOpen(false)}
                           className={({ isActive }) => `
-                            flex items-center gap-3 px-4 py-3 rounded-xl
-                            transition-all duration-300
+                            flex items-center gap-3 rounded-xl border px-4 py-3
+                            transition-all duration-300 ${focusRing}
                             ${
                               isActive
-                                ? 'bg-primary/10 text-primary border border-primary/20'
-                                : 'text-foreground hover:bg-muted/50'
+                                ? 'border-primary/20 bg-primary/10 text-primary'
+                                : 'border-transparent text-foreground hover:bg-muted/50'
                             }
                           `}
-                          onClick={() => setIsOpen(false)}
                         >
-                          <link.icon className="w-5 h-5" />
-                          <span className="font-medium">{t(`nav.${link.navKey}`)}</span>
-                          {location.pathname === link.to && (
-                            <motion.div
-                              layoutId="mobile-indicator"
-                              className="ml-auto w-1.5 h-1.5 rounded-full bg-primary"
-                            />
+                          {({ isActive }) => (
+                            <>
+                              <link.icon className="h-5 w-5" aria-hidden />
+                              <span className="font-medium">{t(`nav.${link.navKey}`)}</span>
+                              {isActive && (
+                                <motion.span
+                                  layoutId="mobile-indicator"
+                                  className="ml-auto h-1.5 w-1.5 rounded-full bg-primary"
+                                />
+                              )}
+                            </>
                           )}
                         </NavLink>
                       </motion.div>
@@ -303,27 +411,28 @@ function Navbar() {
 
                   <motion.div
                     variants={itemVariants}
-                    custom={links.length}
-                    className="p-4 rounded-xl bg-linear-to-br from-primary/5 to-primary/10 border border-primary/10"
+                    className="rounded-xl border border-primary/10 bg-linear-to-br from-primary/5 to-primary/10 p-4"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-primary/10">
-                        <Terminal className="w-4 h-4 text-primary" />
+                      <div className="rounded-lg bg-primary/10 p-2">
+                        <Terminal className="h-4 w-4 text-primary" />
                       </div>
                       <div>
                         <p className="text-sm font-medium">Erivaldo Manuel</p>
                         <p className="text-xs text-muted-foreground">{t('hero.role')}</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 mt-3">
-                      <Sparkles className="w-3 h-3 text-primary" />
+                    <div className="mt-3 flex items-center gap-2">
+                      <span className="relative flex h-2 w-2" aria-hidden>
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/60" />
+                        <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                      </span>
                       <span className="text-xs text-muted-foreground">{t('hero.available')}</span>
                     </div>
                   </motion.div>
 
                   <motion.div
                     variants={itemVariants}
-                    custom={links.length + 1}
                     className="mt-4 flex items-center justify-center gap-3"
                   >
                     {socialLinks.map((social) => (
@@ -332,16 +441,16 @@ function Navbar() {
                         href={social.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-3 rounded-xl bg-muted/30 hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-all duration-300 hover:scale-110"
                         aria-label={social.label}
+                        className={`rounded-xl bg-muted/30 p-3 text-muted-foreground transition-all duration-300 hover:scale-110 hover:bg-muted/50 hover:text-foreground ${focusRing}`}
                       >
-                        <social.icon className="w-5 h-5" />
+                        <social.icon className="h-5 w-5" />
                       </a>
                     ))}
                   </motion.div>
-                </nav>
+                </div>
 
-                <div className="p-4 border-t border-border/50 text-center">
+                <div className="border-t border-border/50 p-4 text-center">
                   <p className="text-xs text-muted-foreground">
                     © {new Date().getFullYear()} Erivaldo Manuel
                   </p>
@@ -352,8 +461,9 @@ function Navbar() {
         )}
       </AnimatePresence>
 
-      <div className="h-16 sm:h-20" />
-    </>
+      {/* Espaçador: igual à altura inicial do header */}
+      <div className="h-16 md:h-20" />
+    </MotionConfig>
   )
 }
 

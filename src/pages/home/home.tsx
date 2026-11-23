@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react'
+
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import {
   Mail,
-  Briefcase,
   Code2,
   Sparkles,
   ArrowRight,
@@ -14,6 +13,7 @@ import {
   Calendar,
   MessageCircle,
   Palette,
+  Briefcase,
 } from 'lucide-react'
 import Reveal, { RevealZoom } from '@/components/common/Reveal'
 import ArchitecturePulse from '@/components/common/ArchitecturePulse'
@@ -27,50 +27,12 @@ import profile1 from '../../assets/picture/profile1.jpeg'
 // TYPES
 // ============================================================
 
-interface CountUpProps {
-  target: number
-  suffix?: string
-  duration?: number
-}
+
 
 // ============================================================
 // COMPONENTS
 // ============================================================
 
-const CountUp = ({ target, suffix = '', duration = 1000 }: CountUpProps) => {
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    let startTime: number | null = null
-    let animationFrame: number
-
-    const animate = (currentTime: number) => {
-      if (startTime === null) startTime = currentTime
-
-      const elapsed = currentTime - startTime
-      const progress = Math.min(elapsed / duration, 1)
-      const currentValue = Math.floor(progress * target)
-
-      setCount(currentValue)
-
-      if (progress < 1) {
-        animationFrame = requestAnimationFrame(animate)
-      } else {
-        setCount(target)
-      }
-    }
-
-    animationFrame = requestAnimationFrame(animate)
-    return () => cancelAnimationFrame(animationFrame)
-  }, [target, duration])
-
-  return (
-    <span>
-      {count}
-      {suffix}
-    </span>
-  )
-}
 
 // ============================================================
 // HOME PAGE
@@ -79,7 +41,7 @@ const CountUp = ({ target, suffix = '', duration = 1000 }: CountUpProps) => {
 function Home() {
   const { t } = useTranslation('common')
   const profile = useTranslatedProfile()
-  const { stats, experiences, academic } = useTranslatedHome()
+  const {  experiences, academic } = useTranslatedHome()
 
   return (
     <section className="min-h-screen">
@@ -143,7 +105,7 @@ function Home() {
                     {t('hero.ctaProjects')}
                   </a>
 
-                  <a href="/Erivaldo.pdf" download className="btn-secondary">
+                  <a href="/CV-ERIVALDO.pdf" download className="btn-secondary">
                     <Download size={18} />
                     {t('hero.ctaResume')}
                   </a>
@@ -284,29 +246,7 @@ function Home() {
           STATS SECTION
       ====================================================== */}
 
-      <div className="border-t border-border/50 bg-card/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-              <Reveal key={stat.label} delay={index * 100}>
-                <div className="text-center p-4 rounded-xl bg-card/50 border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 group">
-                  <div className="flex justify-center mb-2">
-                    <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                      <stat.icon className="w-5 h-5 text-primary" />
-                    </div>
-                  </div>
 
-                  <div className="text-2xl font-bold text-foreground">
-                    <CountUp target={stat.value} suffix={stat.suffix} />
-                  </div>
-
-                  <p className="text-xs text-muted-foreground">{stat.label}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </div>
 
       {/* ======================================================
           SKILLS SECTION
